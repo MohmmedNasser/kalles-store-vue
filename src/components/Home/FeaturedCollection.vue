@@ -4,7 +4,7 @@
             <SectionHeading :sectionHead="sectionHead" />
 
             <v-card elevation="0" class="my-5">
-                <v-tabs v-model="tab" align-tabs="center" class="featured-tabs" color="black">
+                <v-tabs v-model="tab" align-tabs="center" class="featured-tabs px-5 px-sm-1" color="black">
                     <v-tab :value="1" rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135"
                         max-height="41" hide-slider :ripple="false" variant="plain"
                         class="px-3 me-4">Accessories</v-tab>
@@ -19,7 +19,7 @@
                 <v-tabs-window v-model="tab">
                     <v-tabs-window-item v-for="n in 4" :key="n" :value="n">
                         <v-row>
-                            <v-col v-for="i in 8" :key="i" cols="12" md="3">
+                            <v-col v-for="i in 8" :key="i" cols="6" md="3" xl="4">
                                 <ProductCard />
                             </v-col>
                         </v-row>
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import SectionHeading from '../SectionHeading.vue';
-import ProductCard from '../ProductCard.vue';
+import ProductCard from '../Products/ProductCard.vue';
 
 const sectionHead = "Featured Collection";
 const tab = ref(null);

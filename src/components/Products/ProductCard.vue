@@ -1,7 +1,7 @@
 <template>
     <v-card class="product-card pa-0" elevation="0">
         <div class="card-top position-relative">
-            <v-img class="product-img"
+            <v-img class="product-img mx-auto"
                 src="https://cdn.dummyjson.com/products/images/tablets/iPad%20Mini%202021%20Starlight/thumbnail.png"
                 loading="lazy" alt="" width="259" height="259"></v-img>
             <v-btn class="quick-view-btn  text-capitalize font-weight-regular px-0" min-width="148" min-height="39"
@@ -15,7 +15,7 @@
             <v-hover v-slot="{ isHovering, props }">
                 <RouterLink to="/" class="text-body-2 font-weight-semibold text-decoration-none"
                     :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
-                    Video & Air Quality Monitor Video & Air Quality Monitor
+                    Video & Air Quality Monitor
                 </RouterLink>
             </v-hover>
         </v-card-title>
@@ -55,7 +55,7 @@
 }
 
 .product-card .product-img {
-    transition: 0.3s
+    transition: 0.3s;
 }
 
 .product-card:hover .product-img {

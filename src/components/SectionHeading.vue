@@ -36,4 +36,20 @@ defineProps({
     right: -100px;
     top: 50%;
 }
+
+@media (max-width: 991px) {
+
+    .section-head:after,
+    .section-head:before {
+        width: 30px;
+    }
+
+    .section-head:after {
+        left: -50px;
+    }
+
+    .section-head:before {
+        right: -50px;
+    }
+}
 </style>

@@ -6,7 +6,7 @@
             <swiper-slide>
                 <div class="hero-item">
                     <v-container>
-                        <div class="hero-img">
+                        <div class="hero-img d-none d-md-block">
                             <v-img src="/images/main-slide.jpg" loading="lazy" alt="Meet Galaxy S20, S20"
                                 title="Meet Galaxy S20, S20"></v-img>
                         </div>
@@ -14,7 +14,7 @@
                             <div class="content-inner">
                                 <p class="font-weight-medium text-body-1 mb-3">SUMMER 2024</p>
                                 <p class="font-weight-medium text-h4 mb-1">Meet Galaxy S20, S20+</p>
-                                <p class="font-weight-medium text-h6 mb-2">
+                                <p class="font-weight-medium text-subtitle-1 text-sm-h6 mb-2">
                                     This is the phone that will change photography
                                 </p>
                                 <v-btn color="#222222" rounded elevation="0"
@@ -30,7 +30,7 @@
             <swiper-slide>
                 <div class="hero-item">
                     <v-container>
-                        <div class="hero-img">
+                        <div class="hero-img d-none d-md-block">
                             <v-img src="/images/main-slide.jpg" loading="lazy" alt="Meet Galaxy S20, S20"
                                 title="Meet Galaxy S20, S20"></v-img>
                         </div>
@@ -38,7 +38,7 @@
                             <div class="content-inner">
                                 <p class="font-weight-medium text-body-1 mb-3">SUMMER 2024</p>
                                 <p class="font-weight-medium text-h4 mb-1">Meet Galaxy S20, S20+</p>
-                                <p class="font-weight-medium text-h6 mb-2">
+                                <p class="font-weight-medium text-subtitle-1 text-sm-h6 mb-2">
                                     This is the phone that will change photography
                                 </p>
                                 <v-btn color="#222222" rounded elevation="0"
@@ -89,6 +89,12 @@ export default {
     width: 100%;
     height: 400px !important;
     position: relative;
+}
+
+@media (max-width: 960px) {
+    .hero-sec .hero-item {
+        height: 300px !important;
+    }
 }
 
 .hero-sec .hero-img {

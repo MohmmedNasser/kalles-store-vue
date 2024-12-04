@@ -2,23 +2,20 @@
     <section class="my-15">
         <v-container>
             <SectionHeading :sectionHead="sectionHead" />
-
-            <v-row>
-                <v-col cols="6" md="3" xl="4" v-for="item, index in 8" :key="index">
-                    <ProductCard />
+            <v-row class="mt-2">
+                <v-col cols="12" md="6" lg="4" v-for="item, index in 3" :key="index">
+                    <BlogCard />
                 </v-col>
             </v-row>
-
         </v-container>
 
     </section>
 </template>
 
 <script setup lang="ts">
+import BlogCard from '../Blog/BlogCard.vue';
 import SectionHeading from '../SectionHeading.vue';
-import ProductCard from '../Products/ProductCard.vue';
-
-const sectionHead = "Best Seller";
+const sectionHead = "Lates from Blog";
 
 </script>
 

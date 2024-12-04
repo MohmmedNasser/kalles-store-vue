@@ -1,16 +1,16 @@
 <template>
-    <v-layout>
+    <v-layout class="position-relative">
         <AppHeader />
         <v-main>
             <router-view />
         </v-main>
+        <AppFooter />
     </v-layout>
-    <AppFooter />
 </template>
 
 <script setup lang="ts">
-import AppHeader from './components/AppHeader.vue'
-import AppFooter from './components/AppFooter.vue'
+import AppHeader from './components/Global/AppHeader.vue'
+import AppFooter from './components/Global/AppFooter.vue'
 </script>
 
 <style scoped></style>

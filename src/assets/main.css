@@ -24,4 +24,9 @@ v-img {
 a {
     color: #222222;
     transition: 0.3s;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
 }

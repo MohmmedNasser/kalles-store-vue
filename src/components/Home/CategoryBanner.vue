@@ -2,7 +2,7 @@
     <section class="mt-5 mb-15">
         <v-container>
             <v-row>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
@@ -26,7 +26,7 @@
                         </v-row>
                     </v-card>
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
@@ -50,7 +50,7 @@
                         </v-row>
                     </v-card>
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
@@ -74,7 +74,7 @@
                         </v-row>
                     </v-card>
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">

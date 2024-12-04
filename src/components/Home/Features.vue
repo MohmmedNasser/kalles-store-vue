@@ -3,7 +3,7 @@
         <v-container class="py-0" max-width="1140">
             <div class="py-5 border-t border-b">
                 <v-row>
-                    <v-col cols="4">
+                    <v-col cols="12" sm="4">
                         <v-card elevation="0" class="d-flex flex-column justify-center align-center">
                             <v-img src="./images/shp-inf-03.png" alt="30 DAYS RETURN" width="48" height="48"
                                 loading="lazy"></v-img>
@@ -12,7 +12,7 @@
                             </v-card-title>
                         </v-card>
                     </v-col>
-                    <v-col cols="4">
+                    <v-col cols="12" sm="4">
                         <v-card elevation="0" class="d-flex flex-column justify-center align-center">
                             <v-img src="./images/shp-inf-02.png" alt="30 DAYS RETURN" width="48" height="48"
                                 loading="lazy"></v-img>
@@ -22,7 +22,7 @@
                         </v-card>
                     </v-col>
 
-                    <v-col cols="4">
+                    <v-col cols="12" sm="4">
                         <v-card elevation="0" class="d-flex flex-column justify-center align-center">
                             <v-img src="./images/shp-inf-01.png" alt="30 DAYS RETURN" width="48" height="48"
                                 loading="lazy"></v-img>

@@ -18,7 +18,7 @@
 import SectionHeading from '../SectionHeading.vue';
 import ProductCard from '../Products/ProductCard.vue';
 
-const sectionHead = "Best Seller";
+const sectionHead = "Trending";
 
 </script>
 
