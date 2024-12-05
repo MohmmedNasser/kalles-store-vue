@@ -7,34 +7,36 @@
                         <img src="/images/kalles.svg" alt="kalles" title="kalles" loading="lazy" width="95">
                     </router-link>
                 </v-col>
-                <v-col cols="6" class="pa-0 text-center d-none">
-                    <ul class="menu-list">
-                        <li>
-                            <router-link to="/" class="text-capitalize">
-                                beauty
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/" class="text-capitalize">
-                                fragrances
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/" class="text-capitalize">
-                                furniture
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/" class="text-capitalize">
-                                groceries
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/" class="text-capitalize">
-                                home-decoration
-                            </router-link>
-                        </li>
-                    </ul>
+                <v-col cols="6" class="pa-0 text-center">
+                    <nav>
+                        <ul class="menu-list">
+                            <li>
+                                <router-link to="/" class="text-capitalize">
+                                    beauty
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/" class="text-capitalize">
+                                    fragrances
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/" class="text-capitalize">
+                                    furniture
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/" class="text-capitalize">
+                                    groceries
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/" class="text-capitalize">
+                                    home-decoration
+                                </router-link>
+                            </li>
+                        </ul>
+                    </nav>
                 </v-col>
                 <v-col cols="3" class="pa-0 text-end">
                     <div class="d-flex align-center justify-end">
@@ -46,11 +48,11 @@
                             :ripple="false">
                             <Icon icon="prime:user" width="30" />
                         </v-btn>
-                        <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
+                        <!-- <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false">
                             <Icon icon="solar:heart-angle-line-duotone" width="25" />
                             <v-badge color="#222222" content="3" class="text-body-2" floating location="top"></v-badge>
-                        </v-btn>
+                        </v-btn> -->
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false">
                             <Icon icon="solar:bag-4-linear" width="25" />
@@ -76,13 +78,16 @@ import { Icon } from '@iconify/vue';
     justify-content: center;
 }
 
+.menu-list li {
+    padding: 0 17.5px;
+}
+
 .menu-list li a {
     text-decoration: none;
     display: flex;
     align-items: center;
     font-size: 14px;
     color: #222;
-    padding: 0 17.5px;
     transition: all 0.5s ease;
 }
 
@@ -93,8 +98,4 @@ import { Icon } from '@iconify/vue';
 .v-app-bar.v-toolbar:not(.v-toolbar--flat) {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
-
-/* header {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-} */
 </style>

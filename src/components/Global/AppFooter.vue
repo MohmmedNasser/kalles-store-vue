@@ -54,38 +54,38 @@
                                 Categories
                             </span>
                         </v-card-title>
-                        <ul>
-                            <li>
+                        <v-list class="bg-transparent">
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Men
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Women
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Accessories
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Shoes
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Denim
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Dress
                                 </RouterLink>
-                            </li>
-                        </ul>
+                            </v-list-item>
+                        </v-list>
                     </v-card>
                 </v-col>
                 <v-col cols="12" md="3" lg="2">
@@ -95,38 +95,40 @@
                                 Categories
                             </span>
                         </v-card-title>
-                        <ul>
-                            <li>
+
+                        <v-list class="bg-transparent">
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     About Us
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Contact Us
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Terms & Conditions
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Returns & Exchanges
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Shipping & Delivery
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Privacy Policy
                                 </RouterLink>
-                            </li>
-                        </ul>
+                            </v-list-item>
+                        </v-list>
+
                     </v-card>
                 </v-col>
                 <v-col cols="12" md="3" lg="2">
@@ -136,38 +138,39 @@
                                 Useful links
                             </span>
                         </v-card-title>
-                        <ul>
-                            <li>
+
+                        <v-list class="bg-transparent">
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Store Location
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Latest News
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     My Account
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     Size Guide
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     FAQs 2
                                 </RouterLink>
-                            </li>
-                            <li>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                     FAQs
                                 </RouterLink>
-                            </li>
-                        </ul>
+                            </v-list-item>
+                        </v-list>
                     </v-card>
                 </v-col>
                 <v-col cols="12" md="10" lg="3">
@@ -236,15 +239,15 @@ import { Icon } from '@iconify/vue';
 
 <style scoped>
 footer {
-    /* padding: 80px 0 50px !important; */
     padding-top: 50px;
 }
 
-ul li {
+.v-list-item.v-list-item--one-line {
+    min-height: auto;
     margin-bottom: 8px;
 }
 
-ul li a:hover {
+.v-list-item a:hover {
     color: #56cfe1 !important;
 }
 

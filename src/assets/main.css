@@ -30,3 +30,7 @@ a {
 ul {
     list-style-type: none;
 }
+
+/* .v-rating__item--full .v-btn::after {
+    opacity: 1 !important;
+} */

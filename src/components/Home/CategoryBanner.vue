@@ -6,7 +6,8 @@
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
-                                <v-card-title tag="h6" class="pa-0 text-h4 font-weight-bold">Galaxy S10
+                                <v-card-title tag="h6" class="pa-0 text-h6 text-md-h4 font-weight-bold">Galaxy
+                                    S10
                                     Lite</v-card-title>
                                 <v-card-subtitle tag="p"
                                     class="pa-0 mb-4 font-weight-medium text-black opacity-100">Save
@@ -30,7 +31,8 @@
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
-                                <v-card-title tag="h6" class="pa-0 text-h4 font-weight-bold">Galaxy S10
+                                <v-card-title tag="h6" class="pa-0 text-h6 text-md-h4 font-weight-bold">Galaxy
+                                    S10
                                     Lite</v-card-title>
                                 <v-card-subtitle tag="p"
                                     class="pa-0 mb-4 font-weight-medium text-black opacity-100">Save
@@ -54,7 +56,8 @@
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
-                                <v-card-title tag="h6" class="pa-0 text-h4 font-weight-bold">Galaxy S10
+                                <v-card-title tag="h6" class="pa-0 text-h6 text-md-h4 font-weight-bold">Galaxy
+                                    S10
                                     Lite</v-card-title>
                                 <v-card-subtitle tag="p"
                                     class="pa-0 mb-4 font-weight-medium text-black opacity-100">Save
@@ -78,7 +81,8 @@
                     <v-card elevation="0" class="pa-6" color="#f6f6f6">
                         <v-row align="center">
                             <v-col cols="7">
-                                <v-card-title tag="h6" class="pa-0 text-h4 font-weight-bold">Galaxy S10
+                                <v-card-title tag="h6" class="pa-0 text-h6 text-md-h4 font-weight-bold">Galaxy
+                                    S10
                                     Lite</v-card-title>
                                 <v-card-subtitle tag="p"
                                     class="pa-0 mb-4 font-weight-medium text-black opacity-100">Save

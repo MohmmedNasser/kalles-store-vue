@@ -13,7 +13,7 @@
                         <div class="content">
                             <div class="content-inner">
                                 <p class="font-weight-medium text-body-1 mb-3">SUMMER 2024</p>
-                                <p class="font-weight-medium text-h4 mb-1">Meet Galaxy S20, S20+</p>
+                                <p class="font-weight-medium text-h5 text-md-h4 mb-1">Meet Galaxy S20, S20+</p>
                                 <p class="font-weight-medium text-subtitle-1 text-sm-h6 mb-2">
                                     This is the phone that will change photography
                                 </p>
@@ -37,7 +37,7 @@
                         <div class="content">
                             <div class="content-inner">
                                 <p class="font-weight-medium text-body-1 mb-3">SUMMER 2024</p>
-                                <p class="font-weight-medium text-h4 mb-1">Meet Galaxy S20, S20+</p>
+                                <p class="font-weight-medium text-h5 text-md-h4 mb-1">Meet Galaxy S20, S20+</p>
                                 <p class="font-weight-medium text-subtitle-1 text-sm-h6 mb-2">
                                     This is the phone that will change photography
                                 </p>
