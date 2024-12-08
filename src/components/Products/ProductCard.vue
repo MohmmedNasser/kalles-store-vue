@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-card class="product-card pa-0" elevation="0">
-            <div class="card-top position-relative">
+            <div class="card-top position-relative overflow-hidden w-full">
                 <v-img class="product-img mx-auto"
-                    src="https://cdn.dummyjson.com/products/images/tablets/iPad%20Mini%202021%20Starlight/thumbnail.png"
-                    loading="lazy" alt="" width="259" height="259"></v-img>
+                    :src="showItem[products?.title] ? showItem[products?.title] : products?.thumbnail" loading="lazy"
+                    alt="products?.title" width="259" height="259"></v-img>
                 <v-btn class="quick-view-btn  text-capitalize font-weight-regular px-0" width="148" height="39"
                     elevation="1" color="white" rounded>
                     Quick View
@@ -12,23 +12,21 @@
 
             </div>
 
-            <v-card-title tag="p" class="pa-0 text-wrap mb-1 text-grey-darken-4" style="line-height: 1;">
+            <v-card-title tag="p" class="pa-0 text-wrap mb-1 mt-2 text-grey-darken-4" style="line-height: 1;">
                 <v-hover v-slot="{ isHovering, props }">
-                    <RouterLink to="/" class="text-body-2 font-weight-semibold text-decoration-none"
+                    <RouterLink :to="{ name: 'home' }" class="text-body-2 font-weight-semibold text-decoration-none"
                         :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
-                        Video & Air Quality Monitor
+                        {{ products?.title }}
                     </RouterLink>
                 </v-hover>
             </v-card-title>
 
-
-
             <v-card-subtitle tag="p" class="pa-0 font-weight-medium opacity-100 mt-2">
                 <del class="me-2 text-grey-darken-1">
-                    $312.00
+                    ${{ products?.price }}
                 </del>
                 <span class="text-red-accent-4 text-body-2">
-                    $239.00
+                    ${{ (products?.price - products?.price * (products?.discountPercentage / 100)).toFixed(2) }}
                 </span>
             </v-card-subtitle>
 
@@ -38,32 +36,15 @@
             </div> -->
 
             <div>
-                <v-btn-toggle v-model="toggle" class="d-flex items-center mt-3 ga-2">
+                <v-btn-toggle v-model="showItem[products?.title]" class="d-flex items-center mt-3 ga-2">
                     <v-btn size="x-small" variant="text" class="opacity-100 pa-0 d-flex justify-center rounded-circle"
-                        style="" height="30" width="30" :ripple="false">
-                        <v-img class="product-img mx-auto"
-                            src="https://cdn.dummyjson.com/products/images/tablets/iPad%20Mini%202021%20Starlight/thumbnail.png"
-                            loading="lazy" alt="" width="22" height="22"></v-img>
-                    </v-btn>
-                    <v-btn size="x-small" variant="text" class="opacity-100 pa-0 d-flex justify-center rounded-circle"
-                        style="" height="30" width="30" :ripple="false">
-                        <v-img class="product-img mx-auto"
-                            src="https://cdn.dummyjson.com/products/images/tablets/iPad%20Mini%202021%20Starlight/thumbnail.png"
-                            loading="lazy" alt="" width="22" height="22"></v-img>
-                    </v-btn>
-                    <v-btn size="x-small" variant="text" class="opacity-100 pa-0 d-flex justify-center rounded-circle"
-                        style="" height="30" width="30" :ripple="false">
-                        <v-img class="product-img mx-auto"
-                            src="https://cdn.dummyjson.com/products/images/tablets/iPad%20Mini%202021%20Starlight/thumbnail.png"
-                            loading="lazy" alt="" width="22" height="22"></v-img>
-                    </v-btn>
-                    <v-btn size="x-small" variant="text" class="opacity-100 pa-0 d-flex justify-center rounded-circle"
-                        style="" height="30" width="30" :ripple="false">
-                        <v-img class="product-img mx-auto"
-                            src="https://cdn.dummyjson.com/products/images/tablets/iPad%20Mini%202021%20Starlight/thumbnail.png"
-                            loading="lazy" alt="" width="22" height="22"></v-img>
+                        height="35" width="35" :ripple="false" v-for="pic, index in products?.images" :key="index"
+                        :value="pic">
+                        <v-img class="product-img mx-auto" :src="pic" loading="lazy" alt="" width="22"
+                            height="22"></v-img>
                     </v-btn>
                 </v-btn-toggle>
+
             </div>
 
         </v-card>
@@ -72,8 +53,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-const rating = ref(2.1);
-const toggle = ref(null);
+
+defineProps(['products']);
+// const rating = ref(2.1);
+const showItem = ref<any>({});
 </script>
 
 <style scoped>

@@ -3,53 +3,28 @@
         <swiper :slides-per-view="1" :space-between="0" :modules="modules"
             :pagination="{ el: '.hero-pagination', clickable: true }"
             :autoplay="{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }" :loop="true">
-            <swiper-slide>
+            <swiper-slide v-for="info in sliderInfo" :key="info.id">
                 <div class="hero-item">
                     <v-container>
                         <div class="hero-img d-none d-md-block">
-                            <v-img src="/images/main-slide.jpg" loading="lazy" alt="Meet Galaxy S20, S20"
+                            <v-img :src="`/images/${info.slideImg}`" loading="lazy" alt="Meet Galaxy S20, S20"
                                 title="Meet Galaxy S20, S20"></v-img>
                         </div>
                         <div class="content">
                             <div class="content-inner">
-                                <p class="font-weight-medium text-body-1 mb-3">SUMMER 2024</p>
-                                <p class="font-weight-medium text-h5 text-md-h4 mb-1">Meet Galaxy S20, S20+</p>
+                                <p class="font-weight-medium text-body-1 mb-3">{{ info.slideSpan }}</p>
+                                <p class="font-weight-medium text-h5 text-md-h4 mb-1"> {{ info.slideName }} </p>
                                 <p class="font-weight-medium text-subtitle-1 text-sm-h6 mb-2">
-                                    This is the phone that will change photography
+                                    {{ info.slideBody }}
                                 </p>
-                                <v-btn color="#222222" rounded elevation="0"
-                                    class="text-capitalize text-body-2 mt-3 px-8 py-1">
+                                <RouterLink :to="{ name: 'home' }" color="#222222" rounded elevation="0"
+                                    class="d-inline-flex text-capitalize text-white text-body-2 rounded-pill bg-grey-darken-4 mt-3 px-8 py-3">
                                     Explore Now
-                                </v-btn>
+                                </RouterLink>
                             </div>
                         </div>
                     </v-container>
                 </div>
-
-            </swiper-slide>
-            <swiper-slide>
-                <div class="hero-item">
-                    <v-container>
-                        <div class="hero-img d-none d-md-block">
-                            <v-img src="/images/main-slide.jpg" loading="lazy" alt="Meet Galaxy S20, S20"
-                                title="Meet Galaxy S20, S20"></v-img>
-                        </div>
-                        <div class="content">
-                            <div class="content-inner">
-                                <p class="font-weight-medium text-body-1 mb-3">SUMMER 2024</p>
-                                <p class="font-weight-medium text-h5 text-md-h4 mb-1">Meet Galaxy S20, S20+</p>
-                                <p class="font-weight-medium text-subtitle-1 text-sm-h6 mb-2">
-                                    This is the phone that will change photography
-                                </p>
-                                <v-btn color="#222222" rounded elevation="0"
-                                    class="text-capitalize text-body-2 mt-3 px-8 py-1">
-                                    Explore Now
-                                </v-btn>
-                            </div>
-                        </div>
-                    </v-container>
-                </div>
-
             </swiper-slide>
 
             <div class="hero-pagination"></div>
@@ -65,6 +40,8 @@ import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from "swiper/modules";
 import 'swiper/css/pagination';
+import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 export default {
     components: {
@@ -73,8 +50,26 @@ export default {
     },
     setup() {
 
+        const sliderInfo = ref([
+            {
+                id: 1,
+                slideImg: 'main-slide.jpg',
+                slideSpan: "SUMMER 2024",
+                slideName: "Meet Galaxy S20, S20+",
+                slideBody: "This is the phone that will change photography",
+            },
+            {
+                id: 2,
+                slideImg: 'main-slide.jpg',
+                slideSpan: "SUMMER 2024",
+                slideName: "Meet Galaxy S20, S20+",
+                slideBody: "This is the phone that will change photography",
+            }
+        ]);
+
         return {
             modules: [Pagination, Autoplay],
+            sliderInfo,
         }
     }
 }
