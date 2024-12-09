@@ -31,6 +31,6 @@ ul {
     list-style-type: none;
 }
 
-/* .v-rating__item--full .v-btn::after {
-    opacity: 1 !important;
-} */
+.v-slide-group .v-slide-group__content {
+    justify-content: center !important;
+}

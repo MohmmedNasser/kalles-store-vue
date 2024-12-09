@@ -2,25 +2,21 @@
     <section class="my-15">
         <v-container>
             <SectionHeading :sectionHead="sectionHead" />
-
-            <v-card elevation="0" class="my-5">
-                <v-tabs v-model="tab" align-tabs="center" class="featured-tabs px-5 px-sm-1" color="black">
-                    <v-tab :value="1" rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135"
-                        max-height="41" hide-slider :ripple="false" variant="plain"
-                        class="px-3 me-4">Accessories</v-tab>
-                    <v-tab :value="2" rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135"
-                        max-height="41" hide-slider :ripple="false" variant="plain" class="px-3 me-4">Smart TV</v-tab>
-                    <v-tab :value="3" rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135"
-                        max-height="41" hide-slider :ripple="false" variant="plain" class="px-3 me-4">Camera</v-tab>
-                    <v-tab :value="4" rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135"
-                        max-height="41" hide-slider :ripple="false" variant="plain" class="px-3">Digital</v-tab>
+            <v-card elevation="0" class="mb-5">
+                <v-tabs v-model="tab" align-tabs="center" class="featured-tabs mb-4 px-5 px-sm-1" color="black">
+                    <v-tab v-for="category in featuredCollection" :key="category.slug" :value="category.slug"
+                        rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135" max-height="41"
+                        hide-slider :ripple="false" variant="plain" class="px-3 mx-3">
+                        {{ category.name }}
+                    </v-tab>
                 </v-tabs>
 
                 <v-tabs-window v-model="tab">
-                    <v-tabs-window-item v-for="n in 4" :key="n" :value="n">
+                    <v-tabs-window-item v-for="category in featuredCollection" :key="category.slug"
+                        :value="category.slug">
                         <v-row>
-                            <v-col v-for="i in 8" :key="i" cols="6" md="3" xl="4">
-                                <ProductCard />
+                            <v-col v-for="(product, index) in products" :key="index" cols="6" md="3" xl="4">
+                                <ProductCard :products="product" />
                             </v-col>
                         </v-row>
                     </v-tabs-window-item>
@@ -32,12 +28,58 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
 import SectionHeading from '../SectionHeading.vue';
-import ProductCard from '../Products/ProductCard.vue';
+import api from '@/api';
+import { useProductStore } from '@/stores/product';
+
+interface Category {
+    slug: string,
+    name: string,
+    url: string,
+}
+
+const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));
 
 const sectionHead = "Featured Collection";
-const tab = ref(null);
+const productStore = useProductStore();
+const { fetchProducts } = productStore;
+const tab = ref<String | null>(null);
+const products = ref<object>([]);
+const featuredCollection = ref<Category[]>([]);
+
+const fetchCategories = async () => {
+    try {
+        const { data } = await api.get('/products/categories');
+        featuredCollection.value = data.slice(0, 4);
+        if (featuredCollection.value.length > 0) {
+            tab.value = featuredCollection.value[0].slug;
+            await fetchProducts(JSON.stringify(tab.value));
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
+};
+
+// const fetchProducts = async (slug: any) => {
+//     try {
+//         const { data } = await api.get(`/products/category/${slug}`);
+//         products.value = data.products.slice(0, 8);
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//     }
+// };
+
+onMounted(async () => {
+    await fetchCategories();
+})
+
+watch(tab, async (newCategory: any) => {
+    if (newCategory) {
+        products.value = await fetchProducts(newCategory);
+    }
+});
+
 </script>
 
 <style scoped>
@@ -45,9 +87,4 @@ const tab = ref(null);
     border: 1px dashed #222222;
     background: transparent !important;
 }
-
-/* 
-.v-tab--selected .v-tab__slider {
-    display: none;
-} */
 </style>

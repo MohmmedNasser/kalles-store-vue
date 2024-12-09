@@ -35,7 +35,7 @@
                     active-color="amber-lighten-2" />
             </div> -->
 
-            <div>
+            <div v-if="products?.images">
                 <v-btn-toggle v-model="showItem[products?.title]" class="d-flex items-center mt-3 ga-2">
                     <v-btn size="x-small" variant="text" class="opacity-100 pa-0 d-flex justify-center rounded-circle"
                         height="35" width="35" :ripple="false" v-for="pic, index in products?.images" :key="index"

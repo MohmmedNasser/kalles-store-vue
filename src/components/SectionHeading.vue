@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-center align-center">
+    <div class="d-flex justify-center align-center mb-5">
         <h3 class="section-head position-relative text-center text-h5 text-uppercase font-weight-semibold mb-3">
             <span>{{ sectionHead }}</span>
         </h3>

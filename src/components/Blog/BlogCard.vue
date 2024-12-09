@@ -2,30 +2,51 @@
     <v-card elevation="0" class="pa-0 blog-card">
         <div class="blog-img position-relative w-full">
             <RouterLink to="/">
-                <v-img src="./images/blog-01.jpg" class="rounded-lg overflow-hidden" cover
-                    alt="Style for couple in Weeding season" height="277" loading="lazy"></v-img>
+                <v-img :src="`./images/${blogInfo?.image}`" class="rounded-lg overflow-hidden" cover
+                    :alt="`${blogInfo?.title}`" height="277" loading="lazy"></v-img>
             </RouterLink>
         </div>
         <v-card-title tag="h6" class="pa-0 mt-3 text-body-1 font-weight-bold">
             <v-hover v-slot="{ isHovering, props }">
-                <RouterLink to="/" :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
-                    Style for couple in Weeding season
+                <RouterLink :to="{ name: 'home' }" :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
+                    {{ blogInfo?.title }}
                 </RouterLink>
             </v-hover>
         </v-card-title>
 
         <div class="d-flex items-center text-body-2 ga-1 text-grey-darken-2 mt-2">
-            By <span class="text-grey-darken-4">John Doe</span> On <span class="text-grey-darken-4">May 22, 2024</span>
+            By <span class="text-grey-darken-4">{{ blogInfo?.userName }}</span> On <span class="text-grey-darken-4">
+                {{ blogInfo?.date }}
+            </span>
         </div>
 
         <v-card-text tag="p" class="pa-0 text-body-2 mt-2 text-grey-darken-1">
-            Typography is the work of typesetters, compositors, typographers, graphic designers, art directors, manga
-            artists,...
-        </v-card-text>
+            {{ (blogInfo?.description)?.split(' ').reduce((a, b) => (a + b).length < 100 ? a + ' ' + b : a) + ' ...' }}
+                </v-card-text>
     </v-card>
 </template>
 
 <script setup lang="ts">
+import { type PropType } from 'vue'
+
+interface Blog {
+    id: Number,
+    title: String,
+    userName: String,
+    date: String,
+    description: String,
+    image: String
+}
+
+defineProps<{
+    blogInfo: Blog
+}>()
+
+// defineProps({
+//     blogInfo: {
+//         type: Object as PropType<Blog>,
+//     }
+// });
 
 </script>
 

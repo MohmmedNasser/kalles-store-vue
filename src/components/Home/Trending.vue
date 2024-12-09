@@ -4,7 +4,7 @@
             <SectionHeading :sectionHead="sectionHead" />
 
             <v-row>
-                <v-col cols="6" md="3" xl="4" v-for="product in trending" :key="product.id">
+                <v-col cols="6" md="3" xl="4" v-for="product, index in smartPhones" :key="index">
                     <ProductCard :products="product" />
                 </v-col>
             </v-row>
@@ -16,32 +16,35 @@
 
 <script setup lang="ts">
 import SectionHeading from '../SectionHeading.vue';
-import ProductCard from '../Products/ProductCard.vue';
-import api from '@/api';
-import { onMounted, ref } from 'vue';
+import { useProductStore } from '@/stores/product';
+import { defineAsyncComponent, onMounted, ref } from 'vue';
 
-const sectionHead = "Trending";
-const trending = ref<any>([]);
-const getTrendingProduct = async () => {
-    try {
-        const res = await api.get('/products/category/smartphones');
-        trending.value = res.data.products.slice(0, 8);
-        // trending.value = res.data.products.filter((_: any, index: number) => index < 8);
-        return res.data;
-    } catch (error) {
-        console.error('Failed to fetch data:', error);
-    }
-
-    // const res = await api.get('/products/category/smartphones')
-    //     .then(res => trending.value = res.data.products.slice(0, 8))
-    //     .catch(err => console.log(err)
-    //     );
-
-}
+const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));
+const sectionHead = "smart phones";
+const productStore = useProductStore();
+const { fetchProducts } = productStore;
+const smartPhones = ref<Object>();
 
 onMounted(async () => {
-    await getTrendingProduct();
-});
+    smartPhones.value = await fetchProducts("smartphones");
+})
+
+// const smartphones = ref<any>([]);
+// const getSmartPhonesProduct = async () => {
+//     try {
+//         const res = await api.get('/products/category/smartphones');
+//         smartphones.value = res.data.products.slice(0, 8);
+//         // trending.value = res.data.products.filter((_: any, index: number) => index < 8);
+//         return res.data;
+//     } catch (error) {
+//         console.error('Failed to fetch data:', error);
+//     }
+
+// }
+
+// onMounted(async () => {
+//     await getSmartPhonesProduct();
+// });
 
 </script>
 

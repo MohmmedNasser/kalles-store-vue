@@ -4,8 +4,8 @@
             <SectionHeading :sectionHead="sectionHead" />
 
             <v-row>
-                <v-col cols="6" md="3" xl="4" v-for="item, index in 8" :key="index">
-                    <ProductCard />
+                <v-col cols="6" md="3" xl="4" v-for="product, index in laptops" :key="index">
+                    <ProductCard :products="product" />
                 </v-col>
             </v-row>
 
@@ -16,9 +16,34 @@
 
 <script setup lang="ts">
 import SectionHeading from '../SectionHeading.vue';
-import ProductCard from '../Products/ProductCard.vue';
+import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { useProductStore } from '@/stores/product';
 
-const sectionHead = "Best Seller";
+const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));
+const sectionHead = "laptops";
+const productStore = useProductStore();
+const { fetchProducts } = productStore;
+const laptops = ref<object>([]);
+
+onMounted(async () => {
+    laptops.value = await fetchProducts('laptops');
+})
+
+// const laptops = ref<any>([]);
+// const getLaptopsProduct = async () => {
+//     try {
+//         const res = await api.get('/products/category/laptops');
+//         laptops.value = res.data.products.slice(0, 8);
+//         // trending.value = res.data.products.filter((_: any, index: number) => index < 8);
+//         return res.data;
+//     } catch (error) {
+//         console.error('Failed to fetch data:', error);
+//     }
+// }
+
+// onMounted(async () => {
+//     await getLaptopsProduct();
+// });
 
 </script>
 
