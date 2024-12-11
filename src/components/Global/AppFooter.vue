@@ -47,47 +47,7 @@
 
                     </v-card>
                 </v-col>
-                <v-col cols="12" md="2" lg="2">
-                    <v-card elevation="0" color="transparent" class="pa-0">
-                        <v-card-title tag="h5" class="pa-0 font-weight-medium text-body-1 mb-4">
-                            <span>
-                                Categories
-                            </span>
-                        </v-card-title>
-                        <v-list class="bg-transparent">
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Men
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Women
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Accessories
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Shoes
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Denim
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Dress
-                                </RouterLink>
-                            </v-list-item>
-                        </v-list>
-                    </v-card>
-                </v-col>
+
                 <v-col cols="12" md="3" lg="2">
                     <v-card elevation="0" color="transparent" class="pa-0">
                         <v-card-title tag="h5" class="pa-0 font-weight-medium text-body-1 mb-4">
@@ -98,7 +58,9 @@
 
                         <v-list class="bg-transparent">
                             <v-list-item class="pa-0" v-for="category, index in categories" :key="index">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                <RouterLink
+                                    :to="{ name: 'product_category', params: { category: category.slug }, query: { name: category.name } }"
+                                    class="text-grey-darken-1 text-body-2">
                                     {{ category.name }}
                                 </RouterLink>
                             </v-list-item>
@@ -106,6 +68,49 @@
 
                     </v-card>
                 </v-col>
+
+                <v-col cols="12" md="2" lg="2">
+                    <v-card elevation="0" color="transparent" class="pa-0">
+                        <v-card-title tag="h5" class="pa-0 font-weight-medium text-body-1 mb-4">
+                            <span>
+                                Infomation
+                            </span>
+                        </v-card-title>
+                        <v-list class="bg-transparent">
+                            <v-list-item class="pa-0">
+                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                    About Us
+                                </RouterLink>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
+                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                    Contact Us
+                                </RouterLink>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
+                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                    Terms & Conditions
+                                </RouterLink>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
+                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                    Returns & Exchanges
+                                </RouterLink>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
+                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                    Shipping & Delivery
+                                </RouterLink>
+                            </v-list-item>
+                            <v-list-item class="pa-0">
+                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
+                                    Privacy Policy
+                                </RouterLink>
+                            </v-list-item>
+                        </v-list>
+                    </v-card>
+                </v-col>
+
                 <v-col cols="12" md="3" lg="2">
                     <v-card elevation="0" color="transparent" class="pa-0">
                         <v-card-title tag="h5" class="pa-0 font-weight-medium text-body-1 mb-4">
@@ -208,12 +213,12 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from '@/stores/product';
+import { useCategoriesStore } from '@/stores/categories';
 import { Icon } from '@iconify/vue';
 import { onMounted, ref } from 'vue';
 
-const productStore = useProductStore();
-const { fetchCategories } = productStore;
+const categoriesStore = useCategoriesStore();
+const { fetchCategories } = categoriesStore;
 const categories = ref<Object>({});
 
 onMounted(async () => {

@@ -3,6 +3,12 @@ import HomeView from '../views/Home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return {
+      top: 0,
+      behavior: 'smooth',
+    }
+  },
   routes: [
     {
       path: '/',
@@ -18,6 +24,11 @@ const router = createRouter({
       path: '/products/:category',
       name: 'product_category',
       component: () => import('../views/ProductCategory.vue'),
+    },
+    {
+      path: '/product/:id',
+      name: 'product_details',
+      component: () => import('../views/ProductDetailsPage.vue'),
     }
   ],
 })

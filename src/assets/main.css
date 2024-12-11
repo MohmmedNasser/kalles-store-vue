@@ -45,3 +45,13 @@ ul {
 .v-skeleton-loader .v-skeleton-loader__text {
     margin: 8px;
 }
+
+.v-breadcrumbs-divider {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.v-breadcrumbs-item--link:hover {
+    color: #0dcaf0 !important;
+    text-decoration: none !important;
+}

@@ -8,11 +8,10 @@
 
 <script setup lang="ts">
 
-defineProps({
-    sectionHead: {
-        type: String,
-    }
-})
+defineProps<{
+    sectionHead: any
+}>();
+
 
 </script>
 

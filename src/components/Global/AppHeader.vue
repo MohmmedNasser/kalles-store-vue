@@ -11,7 +11,8 @@
                     <nav>
                         <ul class="menu-list">
                             <li v-for="category, index in categories" :key="index">
-                                <router-link :to="{ name: 'product_category', params: { category: category.slug } }"
+                                <router-link
+                                    :to="{ name: 'product_category', params: { category: category.slug }, query: { name: category.name } }"
                                     class="text-capitalize">
                                     {{ category.name }}
                                 </router-link>
@@ -48,12 +49,12 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from '@/stores/product';
+import { useCategoriesStore } from '@/stores/categories';
 import { Icon } from '@iconify/vue';
 import { onMounted, ref } from 'vue';
 
-const productStore = useProductStore();
-const { fetchCategories } = productStore;
+const categoriesStore = useCategoriesStore();
+const { fetchCategories } = categoriesStore;
 const categories = ref<Object>({});
 
 onMounted(async () => {

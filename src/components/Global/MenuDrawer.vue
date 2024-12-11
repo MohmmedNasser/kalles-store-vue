@@ -3,7 +3,9 @@
         <v-navigation-drawer v-model="menuDrawer" temporary>
             <v-list>
                 <v-list-item v-for="category, index in categories" :key="index">
-                    <router-link :to="{ name: 'home' }" class="text-capitalize">
+                    <router-link
+                        :to="{ name: 'product_category', params: { category: category.slug }, query: { name: category.name } }"
+                        class="text-capitalize">
                         {{ category.name }}
                     </router-link>
                 </v-list-item>
@@ -20,15 +22,16 @@
 import { Icon } from '@iconify/vue';
 import { useMenuStore } from '@/stores/menu';
 import { storeToRefs } from 'pinia';
-import { useProductStore } from '@/stores/product';
 import { onMounted, ref } from 'vue';
+import { useCategoriesStore } from '@/stores/categories';
 
 const useMenu = useMenuStore();
-const productStore = useProductStore();
+const categoriesStore = useCategoriesStore();
+
 
 const { menuDrawer } = storeToRefs(useMenu);
 const { toggleMenu } = useMenu;
-const { fetchCategories } = productStore;
+const { fetchCategories } = categoriesStore;
 
 const categories = ref<Object>({});
 

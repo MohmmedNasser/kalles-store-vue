@@ -6,25 +6,22 @@ export const useProductStore = defineStore('product', () => {
   const fetchProducts = async (name: string) => {
     try {
       const res = await api.get(`/products/category/${name}`);
-      const date = res.data.products.slice(0, 8);
+      const date = await res.data.products.slice(0, 8);
       // product.value = res.data.products.filter((_: any, index: number) => index < 8);
       return date;
     } catch (error) {
       console.error('Failed to fetch data:', error);
     }
   }
-
-
-  const fetchCategories = async () => {
-    const res = await api.get('/products/categories');
-    const data = res.data.slice(0, 6).map((cat: any) => {
-      return {
-        slug: cat.slug,
-        name: cat.name
-      }
-    });
-    return data;
+  const getSingleProduct = async (id: any) => {
+    try {
+      const res = await api.get(`https://dummyjson.com/products/${id}`)
+      const product = await res.data;
+      return product;
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
   }
 
-  return { fetchProducts, fetchCategories }
+  return { fetchProducts, getSingleProduct }
 })
