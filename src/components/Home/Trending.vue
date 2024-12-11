@@ -4,7 +4,13 @@
             <SectionHeading :sectionHead="sectionHead" />
 
             <v-row>
-                <v-col cols="6" md="3" xl="4" v-for="product, index in smartPhones" :key="index">
+
+                <v-col v-if="!smartPhones || !smartPhones.length" cols="6" md="3" xl="4" v-for="n in 8"
+                    :key="'skeleton-' + n">
+                    <v-skeleton-loader type="card, text, chip, chip"></v-skeleton-loader>
+                </v-col>
+
+                <v-col v-else cols="6" md="3" xl="4" v-for="product, index in smartPhones" :key="index">
                     <ProductCard :products="product" />
                 </v-col>
             </v-row>
@@ -23,7 +29,7 @@ const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.v
 const sectionHead = "smart phones";
 const productStore = useProductStore();
 const { fetchProducts } = productStore;
-const smartPhones = ref<Object>();
+const smartPhones = ref<Array<any>>([]);
 
 onMounted(async () => {
     smartPhones.value = await fetchProducts("smartphones");

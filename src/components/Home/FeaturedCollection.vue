@@ -15,7 +15,13 @@
                     <v-tabs-window-item v-for="category in featuredCollection" :key="category.slug"
                         :value="category.slug">
                         <v-row>
-                            <v-col v-for="(product, index) in products" :key="index" cols="6" md="3" xl="4">
+
+                            <v-col v-if="!products || !products.length || loading" cols="6" md="3" xl="4" v-for="n in 8"
+                                :key="'skeleton-' + n">
+                                <v-skeleton-loader type="card, text, chip, chip"></v-skeleton-loader>
+                            </v-col>
+
+                            <v-col v-else v-for="(product, index) in products" :key="index" cols="6" md="3" xl="4">
                                 <ProductCard :products="product" />
                             </v-col>
                         </v-row>
@@ -45,8 +51,9 @@ const sectionHead = "Featured Collection";
 const productStore = useProductStore();
 const { fetchProducts } = productStore;
 const tab = ref<String | null>(null);
-const products = ref<object>([]);
+const products = ref<Array<any>>([]);
 const featuredCollection = ref<Category[]>([]);
+const loading = ref(false);
 
 const fetchCategories = async () => {
     try {
@@ -75,9 +82,11 @@ onMounted(async () => {
 })
 
 watch(tab, async (newCategory: any) => {
+    loading.value = true;
     if (newCategory) {
         products.value = await fetchProducts(newCategory);
     }
+    loading.value = false;
 });
 
 </script>

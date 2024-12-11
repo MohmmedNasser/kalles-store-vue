@@ -2,43 +2,24 @@
     <v-app-bar scroll-behavior="hide" height="70">
         <v-container>
             <v-row align="center">
-                <v-col cols="3" class="pa-0">
+                <v-col cols="2" class="pa-0">
                     <router-link :to="{ name: 'home' }">
                         <img src="/images/kalles.svg" alt="kalles" title="kalles" loading="lazy" width="95">
                     </router-link>
                 </v-col>
-                <v-col cols="6" class="pa-0 text-center">
+                <v-col cols="8" class="pa-0 text-center">
                     <nav>
                         <ul class="menu-list">
-                            <li>
-                                <router-link to="/" class="text-capitalize">
-                                    beauty
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/" class="text-capitalize">
-                                    fragrances
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/" class="text-capitalize">
-                                    furniture
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/" class="text-capitalize">
-                                    groceries
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/" class="text-capitalize">
-                                    home-decoration
+                            <li v-for="category, index in categories" :key="index">
+                                <router-link :to="{ name: 'product_category', params: { category: category.slug } }"
+                                    class="text-capitalize">
+                                    {{ category.name }}
                                 </router-link>
                             </li>
                         </ul>
                     </nav>
                 </v-col>
-                <v-col cols="3" class="pa-0 text-end">
+                <v-col cols="2" class="pa-0 text-end">
                     <div class="d-flex align-center justify-end">
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false">
@@ -67,7 +48,18 @@
 </template>
 
 <script setup lang="ts">
+import { useProductStore } from '@/stores/product';
 import { Icon } from '@iconify/vue';
+import { onMounted, ref } from 'vue';
+
+const productStore = useProductStore();
+const { fetchCategories } = productStore;
+const categories = ref<Object>({});
+
+onMounted(async () => {
+    categories.value = await fetchCategories();
+})
+
 </script>
 
 <style scoped>
@@ -79,7 +71,7 @@ import { Icon } from '@iconify/vue';
 }
 
 .menu-list li {
-    padding: 0 17.5px;
+    padding: 0 10px;
 }
 
 .menu-list li a {

@@ -35,8 +35,8 @@
 <script setup lang="ts">
 import { useMenuStore } from '@/stores/menu';
 import { Icon } from '@iconify/vue';
-const useMenu = useMenuStore();
 
+const useMenu = useMenuStore();
 const { toggleMenu } = useMenu;
 
 const toggleMenuFun = () => {

@@ -14,5 +14,17 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  return { fetchProducts }
+
+  const fetchCategories = async () => {
+    const res = await api.get('/products/categories');
+    const data = res.data.slice(0, 6).map((cat: any) => {
+      return {
+        slug: cat.slug,
+        name: cat.name
+      }
+    });
+    return data;
+  }
+
+  return { fetchProducts, fetchCategories }
 })

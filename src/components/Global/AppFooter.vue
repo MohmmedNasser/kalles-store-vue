@@ -97,34 +97,9 @@
                         </v-card-title>
 
                         <v-list class="bg-transparent">
-                            <v-list-item class="pa-0">
+                            <v-list-item class="pa-0" v-for="category, index in categories" :key="index">
                                 <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    About Us
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Contact Us
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Terms & Conditions
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Returns & Exchanges
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Shipping & Delivery
-                                </RouterLink>
-                            </v-list-item>
-                            <v-list-item class="pa-0">
-                                <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                    Privacy Policy
+                                    {{ category.name }}
                                 </RouterLink>
                             </v-list-item>
                         </v-list>
@@ -233,7 +208,18 @@
 </template>
 
 <script setup lang="ts">
+import { useProductStore } from '@/stores/product';
 import { Icon } from '@iconify/vue';
+import { onMounted, ref } from 'vue';
+
+const productStore = useProductStore();
+const { fetchCategories } = productStore;
+const categories = ref<Object>({});
+
+onMounted(async () => {
+    categories.value = await fetchCategories();
+})
+
 
 </script>
 

@@ -2,29 +2,9 @@
     <div>
         <v-navigation-drawer v-model="menuDrawer" temporary>
             <v-list>
-                <v-list-item>
-                    <router-link to="/" class="text-capitalize">
-                        beauty
-                    </router-link>
-                </v-list-item>
-                <v-list-item>
-                    <router-link to="/" class="text-capitalize">
-                        fragrances
-                    </router-link>
-                </v-list-item>
-                <v-list-item>
-                    <router-link to="/" class="text-capitalize">
-                        furniture
-                    </router-link>
-                </v-list-item>
-                <v-list-item>
-                    <router-link to="/" class="text-capitalize">
-                        groceries
-                    </router-link>
-                </v-list-item>
-                <v-list-item>
-                    <router-link to="/" class="text-capitalize">
-                        home-decoration
+                <v-list-item v-for="category, index in categories" :key="index">
+                    <router-link :to="{ name: 'home' }" class="text-capitalize">
+                        {{ category.name }}
                     </router-link>
                 </v-list-item>
             </v-list>
@@ -40,11 +20,21 @@
 import { Icon } from '@iconify/vue';
 import { useMenuStore } from '@/stores/menu';
 import { storeToRefs } from 'pinia';
+import { useProductStore } from '@/stores/product';
+import { onMounted, ref } from 'vue';
 
 const useMenu = useMenuStore();
+const productStore = useProductStore();
 
 const { menuDrawer } = storeToRefs(useMenu);
 const { toggleMenu } = useMenu;
+const { fetchCategories } = productStore;
+
+const categories = ref<Object>({});
+
+onMounted(async () => {
+    categories.value = await fetchCategories();
+})
 
 </script>
 
