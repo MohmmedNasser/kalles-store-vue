@@ -8,14 +8,13 @@
     <Blog />
 </template>
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 
-const Hero = defineAsyncComponent(() => import('../components/Home/Hero.vue'));
-const Feature = defineAsyncComponent(() => import('../components/Home/Features.vue'));
-const CategoryBanner = defineAsyncComponent(() => import('../components/Home/CategoryBanner.vue'));
-const BestSelling = defineAsyncComponent(() => import('../components/Home/BestSelling.vue'));
-const FeaturedCollection = defineAsyncComponent(() => import('../components/Home/FeaturedCollection.vue'));
-const Trending = defineAsyncComponent(() => import('../components/Home/Trending.vue'));
-const Blog = defineAsyncComponent(() => import('../components/Home/Blog.vue'));
+import Hero from "../components/Home/Hero.vue"
+import Feature from "../components/Home/Features.vue"
+import Trending from "../components/Home/Trending.vue"
+import FeaturedCollection from "../components/Home/FeaturedCollection.vue"
+import CategoryBanner from "../components/Home/CategoryBanner.vue"
+import BestSelling from "../components/Home/BestSelling.vue"
+import Blog from "../components/Home/Blog.vue"
 
 </script>

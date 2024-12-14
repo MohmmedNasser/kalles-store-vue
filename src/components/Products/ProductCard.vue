@@ -14,7 +14,8 @@
 
             <v-card-title tag="p" class="pa-0 text-wrap mb-1 mt-2 text-grey-darken-4" style="line-height: 1;">
                 <v-hover v-slot="{ isHovering, props }">
-                    <RouterLink :to="{ name: 'home' }" class="text-body-2 font-weight-semibold text-decoration-none"
+                    <RouterLink :to="{ name: 'product_details', params: { id: products?.id } }"
+                        class="text-body-2 font-weight-semibold text-decoration-none"
                         :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
                         {{ products?.title }}
                     </RouterLink>
