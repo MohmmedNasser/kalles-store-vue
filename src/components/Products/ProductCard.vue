@@ -14,7 +14,8 @@
 
             <v-card-title tag="p" class="pa-0 text-wrap mb-1 mt-2 text-grey-darken-4" style="line-height: 1;">
                 <v-hover v-slot="{ isHovering, props }">
-                    <RouterLink :to="{ name: 'product_details', params: { id: products?.id } }"
+                    <RouterLink
+                        :to="{ name: 'product_details', params: { id: products?.id }, query: { category: products?.category } }"
                         class="text-body-2 font-weight-semibold text-decoration-none"
                         :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
                         {{ products?.title }}
@@ -37,7 +38,7 @@
             </div> -->
 
             <div v-if="products?.images">
-                <v-btn-toggle v-model="showItem[products?.title]" class="d-flex items-center mt-3 ga-2">
+                <v-btn-toggle v-model="showItem[products?.title]" class="d-flex align-center mt-3 ga-2">
                     <v-btn size="x-small" variant="text" class="opacity-100 pa-0 d-flex justify-center rounded-circle"
                         height="35" width="35" :ripple="false" v-for="pic, index in products?.images" :key="index"
                         :value="pic">

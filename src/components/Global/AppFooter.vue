@@ -37,7 +37,7 @@
                         </address>
 
                         <div>
-                            <a href="mailto:contact@company.com" class="d-flex items-center text-decoration-none mt-4">
+                            <a href="mailto:contact@company.com" class="d-flex align-center text-decoration-none mt-4">
                                 <Icon icon="si:mail-line" color="#878787" width="20"></Icon>
                                 <span class="ps-2  text-grey-darken-1 text-body-2">
                                     contact@company.com
@@ -156,7 +156,7 @@
                 <v-col cols="12" md="10" lg="3">
                     <v-card elevation="0" color="transparent" class="pa-0">
                         <v-card-title tag="h5"
-                            class="pa-0 font-weight-medium text-body-1 mb-4 d-flex items-center ga-1">
+                            class="pa-0 font-weight-medium text-body-1 mb-4 d-flex align-center ga-1">
                             <Icon icon="fluent:money-16-regular" class="text-grey-darken-2 flex-shrink-0" width="20" />
                             <span>
                                 GOT QUESTIONS ? WE ARE USING SAFE PAYMENTS
@@ -183,7 +183,7 @@
                     </p>
                 </v-col>
                 <v-col class="pa-0" cols="12" md="6">
-                    <ul class="d-flex items-center ga-10 justify-center justify-md-end ">
+                    <ul class="d-flex align-center ga-10 justify-center justify-md-end ">
                         <li class="mb-0">
                             <RouterLink to="" class="text-grey-darken-1 text-body-2">
                                 Shop

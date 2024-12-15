@@ -140,53 +140,127 @@
 
         </v-container>
 
-        <div class="bg-grey-lighten-3 px-3 py-7 mt-10">
+        <div class="bg-grey-lighten-3 px-3 py-7 my-10">
             <v-container>
                 <v-row>
                     <v-col cols="12">
                         <v-card elevation="0" class="mb-5 bg-transparent">
 
-                            <v-tabs v-model="tabInfo" align-tabs="center" class="mb-4 px-5 px-sm-1" color="black">
-                                <v-tab v-for="(productTabItem, index) in productTab" :key="index" :value="index"
-                                    rounded="pill" active-color="#222222" base-color="#3d3c3d" max-width="135"
-                                    max-height="41" hide-slider :ripple="false" variant="plain"
+                            <v-tabs v-model="tabInfo" align-tabs="center" class="product-info-tab mb-8 px-5 px-sm-1"
+                                color="black">
+                                <v-tab v-for="(productHeadingTabItem, index) in productHeadingTab" :key="index"
+                                    :value="index" rounded="pill" active-color="#222222" base-color="#3d3c3d"
+                                    max-width="135" max-height="41" hide-slider :ripple="false" variant="plain"
                                     class="px-3 mx-3 text-capitalize opacity-100">
-                                    {{ productTabItem }}
+                                    {{ productHeadingTabItem }}
                                 </v-tab>
                             </v-tabs>
 
-
                             <v-tabs-window v-model="tabInfo">
-                                <!-- <v-tabs-window-item v-for="(_, index) in productTab" :key="index" :value="index">
-                                    <v-row>
-                                        <v-col v-for="(item, index) in productTab" :key="index" cols="6" md="3" xl="4">
-
-                                        </v-col>
-                                    </v-row>
-                                </v-tabs-window-item> -->
 
                                 <v-tabs-window-item :value="0">
                                     <v-row>
                                         <v-col cols="12">
-                                            {{ product.description }}
+                                            <v-card-text tag="p"
+                                                class="opacity-100 pa-0 text-body-2 text-grey-darken-4">
+                                                {{ product.description }}
+                                            </v-card-text>
                                         </v-col>
                                     </v-row>
                                 </v-tabs-window-item>
                                 <v-tabs-window-item :value="1">
                                     <v-row>
                                         <v-col cols="12">
-                                            {{ additionalInfo }}
+                                            <v-table class="bg-transparent border">
+                                                <tbody class="text-capitalize">
+
+                                                    <tr>
+                                                        <td class="border-e">
+                                                            dimension
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-center ga-2">
+                                                                <p>
+                                                                    <span>width :</span>
+                                                                    {{
+                                                                        additionalInfo.dimensions.width
+                                                                    }}
+                                                                </p>
+                                                                |
+                                                                <p>
+                                                                    <span>Height :</span> {{
+                                                                        additionalInfo.dimensions.height }}
+                                                                </p>
+                                                                |
+                                                                <p>
+                                                                    <span>Depth :</span> {{
+                                                                        additionalInfo.dimensions.depth
+                                                                    }}
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="border-e">
+                                                            warranty Information
+                                                        </td>
+                                                        <td>
+                                                            {{ additionalInfo.warrantyInformation }}
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="border-e">
+                                                            shipping Information
+                                                        </td>
+                                                        <td>
+                                                            {{ additionalInfo.shippingInformation }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </v-table>
+
                                         </v-col>
                                     </v-row>
                                 </v-tabs-window-item>
                                 <v-tabs-window-item :value="2">
                                     <v-row>
-                                        <v-col cols="12">
-                                            {{ product.reviews }}
+                                        <v-col cols="12" md="6" lg="4" v-for="(review, i) in product.reviews" :key="i">
+                                            <v-card elevation="0" class="pa-5 rounded-lg">
+                                                <div class="d-flex align-center ga-2 mb-2">
+                                                    <v-avatar color="#607D8B" size="x-small">
+                                                        {{ (review.reviewerName).split("")[0] }}
+                                                    </v-avatar>
+                                                    <div class="d-flex align-center ga-2 flex-grow-1">
+                                                        <v-card-text tag="p"
+                                                            class="opacity-100 font-weight-medium text-body-2 pa-0 text-grey-darken-4">
+                                                            {{ review.reviewerName }}
+                                                        </v-card-text>
+
+                                                        <v-card-text tag="span"
+                                                            class="pa-0 text-end text-grey-darken-1 text-subtitle-2">
+                                                            {{ formatDate(review.date) }}
+                                                        </v-card-text>
+
+                                                    </div>
+                                                </div>
+
+                                                <v-rating readonly half-increments :length="5" size="20"
+                                                    v-model="review.rating" color="#BDBDBD"
+                                                    active-color="yellow-accent-4" />
+
+                                                <v-card-title tag="h5"
+                                                    class="opacity-100 text-grey-darken-3 font-weight-medium text-body-2 pa-0 mt-2">
+                                                    {{ review.comment }}
+                                                </v-card-title>
+
+
+
+                                            </v-card>
                                         </v-col>
                                     </v-row>
                                 </v-tabs-window-item>
-
                             </v-tabs-window>
 
                         </v-card>
@@ -194,17 +268,19 @@
                     </v-col>
                 </v-row>
             </v-container>
-
         </div>
+
+        <AlsoLikeProduct />
 
     </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useRoute } from 'vue-router';
 import { useProductStore } from '@/stores/product';
+import AlsoLikeProduct from '@/components/Products/AlsoLikeProduct.vue';
 
 const route = useRoute();
 const productStore = useProductStore();
@@ -212,20 +288,34 @@ const product = ref<any>({});
 const selectedTab = ref<String | null>(null);
 const quantity = ref<any>(1);
 const tabInfo = ref<String | null>(null);
-const productTab = ref(['Description', 'Additional Information', 'Reviews']);
+const productHeadingTab = ref(['Description', 'Additional Information', 'Reviews']);
+
 onMounted(async () => {
     product.value = await productStore.getSingleProduct(route.params.id);
-    additionalInfo
+    additionalInfo;
 });
 
 const additionalInfo = computed(() => {
     if (!product.value) return {};
     return {
-        dimensions: product.value.dimensions || 'Not available',
-        warrantyInformation: product.value.warrantyInformation || 'Not available',
-        shippingInformation: product.value.shippingInformation || 'Not available',
+        dimensions: product.value.dimensions,
+        warrantyInformation: product.value.warrantyInformation,
+        shippingInformation: product.value.shippingInformation,
     };
 });
+
+watch(() => route.params.id, async (newRoute) => {
+    if (newRoute) {
+        product.value = await productStore.getSingleProduct(route.params.id);
+        additionalInfo;
+    }
+});
+
+const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+};
 
 </script>
 
@@ -249,7 +339,7 @@ const additionalInfo = computed(() => {
     -webkit-appearance: none;
 }
 
-.v-tab-item--selected {
+.product-info-tab .v-tab-item--selected {
     border: 1px dashed #222222;
     background: transparent !important;
 }

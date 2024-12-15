@@ -14,7 +14,7 @@
             </v-hover>
         </v-card-title>
 
-        <div class="d-flex items-center text-body-2 ga-1 text-grey-darken-2 mt-2">
+        <div class="d-flex align-center text-body-2 ga-1 text-grey-darken-2 mt-2">
             By <span class="text-grey-darken-4">{{ blogInfo?.userName }}</span> On <span class="text-grey-darken-4">
                 {{ blogInfo?.date }}
             </span>
