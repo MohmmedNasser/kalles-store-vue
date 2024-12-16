@@ -15,7 +15,7 @@ export const useProductStore = defineStore('product', () => {
   }
   const getSingleProduct = async (id: any) => {
     try {
-      const res = await api.get(`https://dummyjson.com/products/${id}`)
+      const res = await api.get(`/products/${id}`)
       const product = await res.data;
       return product;
     } catch (error) {

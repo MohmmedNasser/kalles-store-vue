@@ -1,24 +1,31 @@
 import { defineStore } from 'pinia'
 import api from '@/api';
-import { ref } from 'vue';
 
 export const useCategoriesStore = defineStore('categories', () => {
 
     const fetchCategories = async () => {
-        const res = await api.get('/products/categories');
-        const data = await res.data.slice(0, 6).map((cat: any) => {
-            return {
-                slug: cat.slug,
-                name: cat.name
-            }
-        });
-        return data;
+        try {
+            const res = await api.get('/products/categories');
+            const data = await res.data.slice(0, 6).map((cat: any) => {
+                return {
+                    slug: cat.slug,
+                    name: cat.name
+                }
+            });
+            return data;
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        }
     }
 
     const getProductByCategory = async (category: any) => {
-        const res = await api.get(`/products/category/${category}`);
-        const products = await res.data.products;
-        return products;
+        try {
+            const res = await api.get(`/products/category/${category}`);
+            const products = await res.data.products;
+            return products;
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        }
     }
 
     return { fetchCategories, getProductByCategory }
