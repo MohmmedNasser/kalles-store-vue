@@ -57,13 +57,7 @@
                         </v-card-title>
 
                         <v-list class="bg-transparent">
-                            <v-list-item class="pa-0" v-for="category, index in categories" :key="index">
-                                <RouterLink
-                                    :to="{ name: 'product_category', params: { category: category.slug }, query: { name: category.name } }"
-                                    class="text-grey-darken-1 text-body-2">
-                                    {{ category.name }}
-                                </RouterLink>
-                            </v-list-item>
+                            <Category from="footer" />
                         </v-list>
 
                     </v-card>
@@ -213,18 +207,8 @@
 </template>
 
 <script setup lang="ts">
-import { useCategoriesStore } from '@/stores/categories';
 import { Icon } from '@iconify/vue';
-import { onMounted, ref } from 'vue';
-
-const categoriesStore = useCategoriesStore();
-const { fetchCategories } = categoriesStore;
-const categories = ref<Object>({});
-
-onMounted(async () => {
-    categories.value = await fetchCategories();
-})
-
+import Category from '../Category/Category.vue';
 
 </script>
 

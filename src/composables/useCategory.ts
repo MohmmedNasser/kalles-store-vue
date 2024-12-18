@@ -1,7 +1,6 @@
-import { defineStore } from 'pinia'
 import api from '@/api';
 
-export const useCategoriesStore = defineStore('categories', () => {
+export default function useCategory() {
 
     const fetchCategories = async () => {
         try {
@@ -28,5 +27,6 @@ export const useCategoriesStore = defineStore('categories', () => {
         }
     }
 
+
     return { fetchCategories, getProductByCategory }
-})
+}

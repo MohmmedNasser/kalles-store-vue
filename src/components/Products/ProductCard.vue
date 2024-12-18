@@ -6,7 +6,7 @@
                     :src="showItem[products?.title] ? showItem[products?.title] : products?.thumbnail" loading="lazy"
                     alt="products?.title" width="259" height="259"></v-img>
                 <v-btn class="quick-view-btn  text-capitalize font-weight-regular px-0" width="148" height="39"
-                    elevation="1" color="white" rounded>
+                    elevation="1" color="white" rounded @click="handleQuickView">
                     Quick View
                 </v-btn>
 
@@ -14,8 +14,7 @@
 
             <v-card-title tag="p" class="pa-0 text-wrap mb-1 mt-2 text-grey-darken-4" style="line-height: 1;">
                 <v-hover v-slot="{ isHovering, props }">
-                    <RouterLink
-                        :to="{ name: 'product_details', params: { id: products?.id }, query: { category: products?.category } }"
+                    <RouterLink :to="{ name: 'product_details', params: { id: products?.id } }"
                         class="text-body-2 font-weight-semibold text-decoration-none"
                         :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
                         {{ products?.title }}
@@ -31,11 +30,6 @@
                     ${{ (products?.price - products?.price * (products?.discountPercentage / 100)).toFixed(2) }}
                 </span>
             </v-card-subtitle>
-
-            <!-- <div class="d-flex justify-start">
-                <v-rating readonly half-increments :length="5" :size="20" v-model="rating" color="#DDDDDD"
-                    active-color="amber-lighten-2" />
-            </div> -->
 
             <div v-if="products?.images">
                 <v-btn-toggle v-model="showItem[products?.title]" class="d-flex align-center mt-3 ga-2">
@@ -54,11 +48,30 @@
 </template>
 
 <script setup lang="ts">
+import useDialog from '@/composables/useDialog';
 import { ref } from 'vue';
+import type { Product } from '@/types';
 
-defineProps(['products']);
-// const rating = ref(2.1);
+const props = defineProps<{
+    products: Product,
+}>();
+
 const showItem = ref<any>({});
+
+const { openDialog } = useDialog();
+
+
+const handleQuickView = () => {
+    openDialog(props.products);
+}
+
+// const emit = defineEmits(['openQuickView']);
+
+// const openQuickViewFun = (product: Product) => {
+//     emit('openQuickView', product);
+//     openDialog();
+// }
+
 </script>
 
 <style scoped>

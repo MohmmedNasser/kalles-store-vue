@@ -37,7 +37,7 @@
 import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
 import SectionHeading from '../SectionHeading.vue';
 import api from '@/api';
-import { useProductStore } from '@/stores/product';
+import useProduct from '@/composables/useProduct';
 
 interface Category {
     slug: string,
@@ -48,14 +48,13 @@ interface Category {
 const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));
 
 const sectionHead = "Featured Collection";
-const productStore = useProductStore();
-const { fetchProducts } = productStore;
+const { fetchProducts } = useProduct();
 const tab = ref<String | null>(null);
 const products = ref<Array<any>>([]);
 const featuredCollection = ref<Category[]>([]);
 const loading = ref(false);
 
-const fetchCategories = async () => {
+const getCategories = async () => {
     try {
         const { data } = await api.get('/products/categories');
         featuredCollection.value = data.slice(0, 4);
@@ -78,7 +77,7 @@ const fetchCategories = async () => {
 // };
 
 onMounted(async () => {
-    await fetchCategories();
+    await getCategories();
 })
 
 watch(tab, async (newCategory: any) => {

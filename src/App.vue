@@ -7,18 +7,25 @@
             <router-view />
         </v-main>
         <AppFooter />
+        <QuickView v-if="isDialogOpen" />
+        <CartDrawer />
     </v-layout>
 </template>
 
 <script setup lang="ts">
 import AppHeader from './components/Global/AppHeader.vue'
 import AppFooter from './components/Global/AppFooter.vue'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, defineAsyncComponent } from 'vue';
 import AppResponsiveHeader from './components/Global/AppResponsiveHeader.vue';
 import MenuDrawer from './components/Global/MenuDrawer.vue';
+import useDialog from './composables/useDialog';
+import CartDrawer from './components/Cart/cartDrawer.vue';
 
 const mobileView = ref(false);
 const windowWidth = ref(window.innerWidth);
+const { isDialogOpen } = useDialog();
+
+const QuickView = defineAsyncComponent(() => import('@/components/Products/QuickView.vue'));
 
 const getWindowWidth = () => {
     windowWidth.value = window.innerWidth;

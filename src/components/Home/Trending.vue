@@ -21,14 +21,13 @@
 </template>
 
 <script setup lang="ts">
+import useProduct from '@/composables/useProduct';
 import SectionHeading from '../SectionHeading.vue';
-import { useProductStore } from '@/stores/product';
 import { defineAsyncComponent, onMounted, ref } from 'vue';
 
 const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));
 const sectionHead = "smart phones";
-const productStore = useProductStore();
-const { fetchProducts } = productStore;
+const { fetchProducts } = useProduct();
 const smartPhones = ref<Array<any>>([]);
 
 onMounted(async () => {

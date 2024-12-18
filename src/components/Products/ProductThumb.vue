@@ -12,7 +12,7 @@
                 </v-tab>
             </v-tabs>
             <div class="flex-grow-1">
-                <v-img :src="selectedTab ? selectedTab : product.thumbnail" v-model="selectedTab" :alt="product.title"
+                <v-img :src="selectedTab ? selectedTab : product?.thumbnail" v-model="selectedTab" :alt="product.title"
                     height="500" loading="lazy"></v-img>
             </div>
         </div>
@@ -20,18 +20,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import type { Product } from '@/types';
 
 const selectedTab = ref<String | null>(null);
 
-defineProps({
-    product: {
-        type: Object,
-    },
-    loading: {
-        type: Boolean,
-    }
-})
+// defineProps({
+//     product: {
+//         type: Object,
+//     },
+//     loading: {
+//         type: Boolean,
+//     }
+// });
+
+defineProps<{
+    product: Product,
+    loading: Boolean
+}>();
+
 
 </script>
 

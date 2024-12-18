@@ -1,5 +1,5 @@
 <template>
-    <v-col v-if="!product?.title || loading" cols="6" class="pa-0 ps-5">
+    <v-col v-if="Object.keys(product).length == 0 || loading" cols="6" class="pa-0 ps-5">
         <v-skeleton-loader type="heading"></v-skeleton-loader>
         <v-skeleton-loader type="subtitle"></v-skeleton-loader>
         <v-skeleton-loader type="text"></v-skeleton-loader>
@@ -108,7 +108,7 @@
                 <div class="d-flex align-center ga-2 ga-1" v-if="product?.meta?.qrCode">
                     <span class="text-grey-darken-1">QR Code :</span>
                     <div>
-                        <v-img :src="product?.meta?.qrCode" width="30" height="30" loading="lazy" cover />
+                        <v-img :src="product?.meta.qrCode" width="30" height="30" loading="lazy" cover />
                     </div>
                 </div>
             </div>
@@ -121,18 +121,24 @@
 import { ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useRoute } from 'vue-router';
+import type { Product } from '@/types';
 
 const quantity = ref<any>(1);
 const route = useRoute();
 
-defineProps({
-    product: {
-        type: Object,
-    },
-    loading: {
-        type: Boolean,
-    }
-});
+// defineProps({
+//     product: {
+//         type: Object,
+//     },
+//     loading: {
+//         type: Boolean,
+//     }
+// });
+
+defineProps<{
+    product: Product,
+    loading: Boolean,
+}>();
 
 watch(() => route.params.id, async (newRoute) => {
     if (newRoute) {

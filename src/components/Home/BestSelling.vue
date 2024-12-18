@@ -22,12 +22,11 @@
 <script setup lang="ts">
 import SectionHeading from '../SectionHeading.vue';
 import { defineAsyncComponent, onMounted, ref } from 'vue';
-import { useProductStore } from '@/stores/product';
+import useProduct from '@/composables/useProduct';
 
 const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));
 const sectionHead = "laptops";
-const productStore = useProductStore();
-const { fetchProducts } = productStore;
+const { fetchProducts } = useProduct();
 const laptops = ref<Array<any>>([]);
 
 onMounted(async () => {

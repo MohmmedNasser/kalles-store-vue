@@ -26,10 +26,10 @@
 <script setup lang="ts">
 import ProductCard from '@/components/Products/ProductCard.vue';
 import SectionHeading from '@/components/SectionHeading.vue';
-import { useCategoriesStore } from '@/stores/categories';
+import useCategory from '@/composables/useCategory';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-const useProductCategory = useCategoriesStore();
+const { getProductByCategory } = useCategory();
 const route = useRoute();
 const sectionHead = ref(route.query.name);
 const product = ref<Array<any>>([]);
@@ -37,7 +37,7 @@ const loading = ref(false);
 
 onMounted(async () => {
 
-    product.value = await useProductCategory.getProductByCategory(route.params.category);
+    product.value = await getProductByCategory(route.params.category);
     if (!route.query.name) {
         sectionHead.value = route.params.category;
     }
@@ -46,7 +46,7 @@ onMounted(async () => {
 watch(route, async (newRoute: any) => {
     loading.value = true;
     if (newRoute) {
-        product.value = await useProductCategory.getProductByCategory(route.params.category);
+        product.value = await getProductByCategory(route.params.category);
         sectionHead.value = route.query.name;
     }
     loading.value = false;

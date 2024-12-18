@@ -41,18 +41,18 @@
                                                             <p>
                                                                 <span>width :</span>
                                                                 {{
-                                                                    additionalInfo.dimensions.width
+                                                                    additionalInfo.dimensions?.width
                                                                 }}
                                                             </p>
                                                             |
                                                             <p>
                                                                 <span>Height :</span> {{
-                                                                    additionalInfo.dimensions.height }}
+                                                                    additionalInfo.dimensions?.height }}
                                                             </p>
                                                             |
                                                             <p>
                                                                 <span>Depth :</span> {{
-                                                                    additionalInfo.dimensions.depth
+                                                                    additionalInfo.dimensions?.depth
                                                                 }}
                                                             </p>
                                                         </div>
@@ -132,12 +132,17 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import type { Product } from '@/types';
 
-const props = defineProps({
-    product: {
-        type: Object,
-    }
-})
+// const props = defineProps({
+//     product: {
+//         type: Object,
+//     }
+// })
+
+const props = defineProps<{
+    product: Product
+}>();
 
 const tabInfo = ref<String | null>(null);
 const productHeadingTab = ref(['Description', 'Additional Information', 'Reviews']);

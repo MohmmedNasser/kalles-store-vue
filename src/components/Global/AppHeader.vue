@@ -10,13 +10,7 @@
                 <v-col cols="8" class="pa-0 text-center">
                     <nav>
                         <ul class="menu-list">
-                            <li v-for="category, index in categories" :key="index">
-                                <router-link
-                                    :to="{ name: 'product_category', params: { category: category.slug }, query: { name: category.name } }"
-                                    class="text-capitalize">
-                                    {{ category.name }}
-                                </router-link>
-                            </li>
+                            <Category from="header" />
                         </ul>
                     </nav>
                 </v-col>
@@ -36,7 +30,7 @@
                             <v-badge color="#222222" content="3" class="text-body-2" floating location="top"></v-badge>
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
-                            :ripple="false">
+                            :ripple="false" @click="toggleCartMenu">
                             <Icon icon="solar:bag-4-linear" width="25" />
                             <v-badge color="#222222" content="5" floating location="top"></v-badge>
 
@@ -49,17 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import { useCategoriesStore } from '@/stores/categories';
 import { Icon } from '@iconify/vue';
-import { onMounted, ref } from 'vue';
+import Category from '../Category/Category.vue';
+import useCartMenu from '@/composables/useCartMenu';
 
-const categoriesStore = useCategoriesStore();
-const { fetchCategories } = categoriesStore;
-const categories = ref<Object>({});
-
-onMounted(async () => {
-    categories.value = await fetchCategories();
-})
+const { toggleCartMenu } = useCartMenu();
 
 </script>
 
@@ -69,23 +57,6 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.menu-list li {
-    padding: 0 10px;
-}
-
-.menu-list li a {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #222;
-    transition: all 0.5s ease;
-}
-
-.menu-list li a:hover {
-    color: #0dcaf0;
 }
 
 .v-app-bar.v-toolbar:not(.v-toolbar--flat) {

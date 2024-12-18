@@ -3,7 +3,10 @@
         <v-container>
 
             <v-row align="center" class="mt-2">
-                <v-col cols="12" class="pa-0">
+                <v-col v-if="!product.title || loading" cols="12" class="pa-0">
+                    <v-skeleton-loader type="chip"></v-skeleton-loader>
+                </v-col>
+                <v-col v-else cols="12" class="pa-0">
                     <v-breadcrumbs :items="['Home', `${product.title}`]"
                         class="px-0 text-subtitle-2 font-weight-regular">
                         <template v-slot:divider class="pa-0">
@@ -26,7 +29,7 @@
 
         <ProductInfo :product="product" />
 
-        <AlsoLikeProduct />
+        <AlsoLikeProduct :productCategory="product.category" />
 
     </section>
 </template>
@@ -35,25 +38,25 @@
 import { onMounted, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useRoute } from 'vue-router';
-import { useProductStore } from '@/stores/product';
 import ProductInfo from '@/components/Products/ProductInfo.vue';
 import AlsoLikeProduct from '@/components/Products/AlsoLikeProduct.vue';
 import ProductDetails from '@/components/Products/ProductDetails.vue';
 import ProductThumb from '@/components/Products/ProductThumb.vue';
+import useProduct from '@/composables/useProduct';
 
 const route = useRoute();
-const productStore = useProductStore();
+const { getSingleProduct } = useProduct();
 const product = ref<any>({});
 const loading = ref(false);
 
 onMounted(async () => {
-    product.value = await productStore.getSingleProduct(route.params.id);
+    product.value = await getSingleProduct(route.params.id);
 });
 
 watch(() => route.params.id, async (newRoute) => {
     if (newRoute) {
         loading.value = true;
-        product.value = await productStore.getSingleProduct(route.params.id);
+        product.value = await getSingleProduct(route.params.id);
         loading.value = false;
     }
 });
