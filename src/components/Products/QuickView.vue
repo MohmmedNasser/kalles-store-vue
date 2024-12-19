@@ -26,7 +26,7 @@
 import useDialog from '@/composables/useDialog';
 import ProductDetails from './ProductDetails.vue';
 import { ref } from 'vue';
-import { Icon } from '@iconify/vue/dist/iconify.js';
+import { Icon } from '@iconify/vue';
 
 const { isDialogOpen, selectedProduct, closeDialog } = useDialog();
 const loading = ref(false);

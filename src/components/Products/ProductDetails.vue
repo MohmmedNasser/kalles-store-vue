@@ -52,27 +52,11 @@
 
 
             <!-- quantity -->
-            <div class="rounded-pill border border-opacity-50 d-inline-flex align-center mt-4">
-
-                <v-btn class="minus opacity-100 pa-0 rounded-pill" size="x-small" variant="plain" base-color="#000000"
-                    height="30" width="20" :ripple="false" @click="quantity == 1 ? 1 : quantity--">
-                    <Icon icon="mynaui:minus-solid" width="12" class="text-black"></Icon>
-                </v-btn>
-
-                <input type="number"
-                    class="product-quantity text-center border-none outline-none fw-bold text-body-2 font-weight-medium"
-                    value="1" min="0" max="100" v-model="quantity">
-
-                <v-btn class="plus opacity-100 pa-0 rounded-pill" size="x-small" variant="plain" base-color="#000000"
-                    height="30" width="20" :ripple="false" @click="quantity++">
-                    <Icon icon="tabler:plus" width="12" class="text-black"></Icon>
-                </v-btn>
-
-            </div>
+            <Quantity :id="route.params.id" />
 
             <div class="d-flex align-center ga-4 mt-4">
                 <v-btn rounded="pill" elevation="4" base-color="#222222"
-                    class="d-inline-flex text-capitalize text-body-2 px-8">
+                    class="d-inline-flex text-capitalize text-body-2 px-8" @click="handleAddToCart(product)">
                     Add to cart
                 </v-btn>
                 <v-btn size="x-small" rounded="pill" variant="text" base-color="#222222" class="opacity-100 pa-1"
@@ -118,51 +102,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useRoute } from 'vue-router';
 import type { Product } from '@/types';
+import Quantity from './Quantity.vue';
+import { useCartStore } from '@/stores/useCartStoreTest';
 
-const quantity = ref<any>(1);
 const route = useRoute();
 
-// defineProps({
-//     product: {
-//         type: Object,
-//     },
-//     loading: {
-//         type: Boolean,
-//     }
-// });
+const cartStore = useCartStore()
+
+const handleAddToCart = (product: object) => {
+    cartStore.addToCart(product);
+};
 
 defineProps<{
     product: Product,
     loading: Boolean,
 }>();
 
-watch(() => route.params.id, async (newRoute) => {
-    if (newRoute) {
-        quantity.value = 1;
-    }
-});
-
-
 </script>
 
 <style scoped>
-.product-quantity {
-    width: 25px;
-    outline: none !important;
-    user-select: none;
-    pointer-events: none;
-}
-
-.product-quantity::-webkit-inner-spin-button,
-.product-quantity::-webkit-outer-spin-button {
-    appearance: none;
-    -webkit-appearance: none;
-}
-
 ::v-deep .v-skeleton-loader__text+.v-skeleton-loader__text {
     margin-top: 0;
 }
