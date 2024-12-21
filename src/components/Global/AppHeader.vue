@@ -32,7 +32,8 @@
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false" @click="toggleCartMenu">
                             <Icon icon="solar:bag-4-linear" width="25" />
-                            <v-badge color="#222222" content="5" floating location="top"></v-badge>
+                            <v-badge color="#222222" :content="cartStore.countCartItems" floating location="top"
+                                v-if="cartStore.countCartItems > 0"></v-badge>
 
                         </v-btn>
                     </div>
@@ -46,8 +47,10 @@
 import { Icon } from '@iconify/vue';
 import Category from '../Category/Category.vue';
 import useCartMenu from '@/composables/useCartMenu';
+import { useCartStore } from '@/stores/useCartStore';
 
 const { toggleCartMenu } = useCartMenu();
+const cartStore = useCartStore()
 
 </script>
 

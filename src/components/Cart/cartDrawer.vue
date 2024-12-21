@@ -13,7 +13,7 @@
                 </v-btn>
             </div>
 
-            <div class="cart-wrap d-flex flex-column">
+            <div class="cart-wrap d-flex flex-column" v-if="cart.length > 0">
                 <div class="py-3 px-5 cart-subtitle">
                     <v-card-subtitle tag="p" class="opacity-100 pa-0 text-subtitle-2 font-weight-medium text-wrap">
                         Almost there, add <span class="text-red-darken-2">$9.00</span> more to get <span
@@ -22,9 +22,9 @@
                     </v-card-subtitle>
                 </div>
 
+
                 <div class="px-5 cart-list">
-                    <CartProduct />
-                    <CartProduct />
+                    <CartProduct v-for="(product, index) in cart" :key="index" :product="product" />
                 </div>
 
                 <div class="cart-foot px-5 mt-1 pt-3">
@@ -58,27 +58,56 @@
                         class="d-flex justify-center w-full py-3 px-4 text-center rounded-pill text-uppercase text-grey-darken-4 bg-grey-lighten-3 text-body-2 font-weight-medium mb-2 letter-spacing-3 view-cart-btn">
                         View cart
                     </router-link>
-                    <router-link to="/"
-                        class="d-flex justify-center w-full py-3 px-4 text-center rounded-pill text-uppercase text-white text-body-2 font-weight-medium letter-spacing-3  check-out-btn">
+                    <v-btn variant="plain" :disabled="!agree"
+                        class="opacity-100 d-flex justify-center py-3 px-4 text-center rounded-pill text-uppercase text-white text-body-2 font-weight-medium letter-spacing-3 check-out-btn">
                         Check out
-                    </router-link>
+                    </v-btn>
 
                 </div>
 
             </div>
 
+            <div class="cart-empty" v-else>
+                <div class="d-flex justify-center align-center">
+                    <Icon icon="noto:shopping-cart" width="100"></Icon>
+                </div>
+                <v-card-title tag="h5"
+                    class="opacity-100 d-flex justify-center align-center pa-0 mt-4 h-full text-grey-darken-4 text-subtitle-1 text-uppercase">
+                    No items in cart
+                </v-card-title>
+            </div>
+
+
         </v-card>
+
+
     </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
 import useCartMenu from '@/composables/useCartMenu';
 import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import CartProduct from './CartProduct.vue';
+import { useCartStore } from '@/stores/useCartStore';
 
 const { isActiveCartMenu, toggleCartMenu } = useCartMenu();
-const agree = ref(false);
+const cartStore = useCartStore();
+const agree = ref<boolean>(false);
+const freeShipping = ref<number>(1000);
+
+const cart = ref(cartStore.getCartItems);
+
+// const total = computed(() => cart.reduce((acc, item) => acc += item.price * item.quantity, 0))
+
+onMounted(() => {
+    cart.value = cartStore.getCartItems;
+});
+
+watch(() => cartStore.getCartItems, () => {
+    cart.value = cartStore.getCartItems;
+});
+
 
 </script>
 
@@ -124,15 +153,30 @@ const agree = ref(false);
 }
 
 /* cart Buttons */
+
 .view-cart-btn:hover {
     background-color: #BDBDBD !important;
 }
 
 .check-out-btn {
     background-color: #0dcaf0;
+    width: 100%;
+    height: auto !important;
+}
+
+.check-out-btn:disabled {
+    background-color: #60dff8;
 }
 
 .check-out-btn:hover {
     background-color: #0baccc !important;
+}
+
+.cart-empty {
+    height: calc(100vh - 83px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>

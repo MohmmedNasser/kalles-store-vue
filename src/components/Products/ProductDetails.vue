@@ -21,7 +21,7 @@
                     <del class="me-2 text-grey-darken-1 font-weight-medium text-body-2">
                         ${{ product?.price }}
                     </del>
-                    <span class="text-red-accent-4 font-weight-bold text-body-1">
+                    <span class="text-red-accent-4 font-weight-bold text-body-1" v-if="product?.discountPercentage">
                         ${{ (product?.price - product?.price * (product?.discountPercentage /
                             100)).toFixed(2) }}
                     </span>
@@ -52,7 +52,7 @@
 
 
             <!-- quantity -->
-            <Quantity :id="route.params.id" />
+            <Quantity :id="route.params.id" :product="product" @updateQuantity="updateQuantityFun" />
 
             <div class="d-flex align-center ga-4 mt-4">
                 <v-btn rounded="pill" elevation="4" base-color="#222222"
@@ -106,15 +106,26 @@ import { Icon } from '@iconify/vue';
 import { useRoute } from 'vue-router';
 import type { Product } from '@/types';
 import Quantity from './Quantity.vue';
-import { useCartStore } from '@/stores/useCartStoreTest';
+import { useCartStore } from '@/stores/useCartStore';
+import { ref, watch } from 'vue';
 
 const route = useRoute();
 
 const cartStore = useCartStore()
 
+const quantity = ref<any>(1);
+
 const handleAddToCart = (product: object) => {
-    cartStore.addToCart(product);
+    cartStore.addToCart(product, quantity.value);
 };
+
+const updateQuantityFun = (newQuantity: Number) => {
+    quantity.value = newQuantity;
+}
+
+watch(() => quantity.value, (newQuantity) => {
+    updateQuantityFun(newQuantity);
+});
 
 defineProps<{
     product: Product,
