@@ -4,18 +4,32 @@
             <v-img :src="product?.thumbnail" loading="lazy" height="127" class="w-full" cover></v-img>
         </v-col>
         <v-col cols="7" class="pa-0">
-            <v-card-text tag="p" class="pa-0 opacity-100 pt-2">
+            <v-card-text tag="p" class="pa-0 opacity-100 font-weight-medium pt-2">
                 {{ product?.title }}
             </v-card-text>
 
-            <v-card-subtitle tag="div" class="pa-0 opacity-100 mt-2 font-weight-medium">
-                <span class="text-red-accent-3 text-body-2" v-if="product?.discountPercentage">
+            <v-card-subtitle tag="div" class="pa-0 opacity-100 mt-2">
+                <span class="text-grey-darken-2 font-weight-regular text-caption" v-if="product?.discountPercentage">
+                    $ {{ ((product?.price - product?.price * (product?.discountPercentage /
+                        100))).toFixed(2)
+                    }} X {{ product.quantity }}
+                </span>
+                <span class="text-grey-darken-2 font-weight-regular text-caption" v-else>
+                    $ {{ (product?.price).toFixed(2) }} X {{ product?.quantity }}
+                </span>
+            </v-card-subtitle>
+
+            <v-card-subtitle tag="div" class="pa-0 opacity-100 mt-2">
+                <!-- <span class="text-grey-darken-4 font-weight-medium text-body-2" v-if="product?.discountPercentage">
                     $ {{ ((product?.price - product?.price * (product?.discountPercentage /
                         100)) * product?.quantity).toFixed(2)
                     }}
                 </span>
-                <span class="text-red-accent-3 text-body-2" v-else>
-                    $ {{ product?.price }}
+                <span class="text-grey-darken-4 font-weight-medium text-body-2" v-else>
+                    $ {{ (product?.price * product?.quantity).toFixed(2) }}
+                </span> -->
+                <span class="text-grey-darken-4 font-weight-medium text-body-2" v-if="product?.discountPercentage">
+                    $ {{ totalProductPrice }}
                 </span>
             </v-card-subtitle>
 
@@ -42,9 +56,17 @@ import { computed } from 'vue';
 
 const cart = useCartStore();
 
-defineProps<{
+const props = defineProps<{
     product?: Product
 }>();
+
+const totalProductPrice = computed(() => {
+    if (props.product?.discountPercentage) {
+        return ((props.product?.price - props.product?.price * (props.product?.discountPercentage / 100)) * props.product?.quantity).toFixed(2);
+    } else {
+        return (props.product?.price * props.product?.quantity).toFixed(2);
+    }
+});
 
 </script>
 

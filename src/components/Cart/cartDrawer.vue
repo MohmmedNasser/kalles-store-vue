@@ -13,12 +13,18 @@
                 </v-btn>
             </div>
 
-            <div class="cart-wrap d-flex flex-column" v-if="cart.length > 0">
+            <div class="cart-wrap d-flex flex-column" v-if="cart.length">
                 <div class="py-3 px-5 cart-subtitle">
-                    <v-card-subtitle tag="p" class="opacity-100 pa-0 text-subtitle-2 font-weight-medium text-wrap">
-                        Almost there, add <span class="text-red-darken-2">$9.00</span> more to get <span
-                            class="text-red-darken-2 text-uppercase">FREE
+                    <v-card-subtitle tag="p" class="opacity-100 pa-0 text-subtitle-2 font-weight-medium text-wrap"
+                        v-if="freeShippingCalc > 0">
+                        Almost there, add <span class="text-red-darken-2">$ {{ freeShippingCalc }} </span>
+                        more to get <span class="text-red-darken-2 text-uppercase">FREE
                             SHIPPING</span>!
+                    </v-card-subtitle>
+                    <v-card-subtitle tag="p" class="opacity-100 pa-0 text-subtitle-2 font-weight-medium text-wrap"
+                        v-else>
+                        Congratulations, you got <span class="text-red-darken-2 text-uppercase">FREE
+                            SHIPPING</span>.
                     </v-card-subtitle>
                 </div>
 
@@ -31,12 +37,12 @@
                     <v-row>
                         <v-col cols="6">
                             <span class="font-weight-bold text-body-1">
-                                Subtotal:
+                                Total:
                             </span>
                         </v-col>
                         <v-col cols="6" class="text-end">
                             <span class="font-weight-medium text-subtitle-1">
-                                $91.00
+                                {{ totalCartPrice }}
                             </span>
                         </v-col>
                     </v-row>
@@ -54,7 +60,7 @@
                         </template>
                     </v-checkbox>
 
-                    <router-link to="/"
+                    <router-link :to="{ name: 'cart' }"
                         class="d-flex justify-center w-full py-3 px-4 text-center rounded-pill text-uppercase text-grey-darken-4 bg-grey-lighten-3 text-body-2 font-weight-medium mb-2 letter-spacing-3 view-cart-btn">
                         View cart
                     </router-link>
@@ -90,15 +96,14 @@ import { Icon } from '@iconify/vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import CartProduct from './CartProduct.vue';
 import { useCartStore } from '@/stores/useCartStore';
+import type { Product } from '@/types';
 
 const { isActiveCartMenu, toggleCartMenu } = useCartMenu();
 const cartStore = useCartStore();
 const agree = ref<boolean>(false);
-const freeShipping = ref<number>(1000);
+const freeShipping = ref<number>(5000);
 
 const cart = ref(cartStore.getCartItems);
-
-// const total = computed(() => cart.reduce((acc, item) => acc += item.price * item.quantity, 0))
 
 onMounted(() => {
     cart.value = cartStore.getCartItems;
@@ -108,6 +113,23 @@ watch(() => cartStore.getCartItems, () => {
     cart.value = cartStore.getCartItems;
 });
 
+const freeShippingCalc = computed(() => {
+    return parseFloat((freeShipping.value - totalCartPrice.value).toFixed(2));
+});
+
+const totalCartPrice = computed(() => {
+    let total = 0;
+    cart.value.forEach((item: Product) => {
+        let price = 0;
+        if (item?.discountPercentage) {
+            price = (item.price - (item.price * item.discountPercentage) / 100) * item.quantity;
+        } else {
+            price = item.price * item.quantity;
+        }
+        total += Math.round(price * 100) / 100;
+    });
+    return Math.round(total * 100) / 100;
+});
 
 </script>
 
