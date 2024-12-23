@@ -42,7 +42,7 @@
                         </v-col>
                         <v-col cols="6" class="text-end">
                             <span class="font-weight-medium text-subtitle-1">
-                                {{ totalCartPrice }}
+                                $ {{ totalCartPrice }}
                             </span>
                         </v-col>
                     </v-row>
@@ -52,7 +52,7 @@
                     </v-card-text>
 
 
-                    <v-checkbox v-model="agree" base-color="#222222" color="#0dcaf0">
+                    <v-checkbox v-model="agree" base-color="#222222" color="#0dcaf0" class="checkbox-agree">
                         <template v-slot:label>
                             <div class="text-subtitle-2 font-weight-regular text-grey-darken-3">
                                 I agree with the terms and conditions.
@@ -60,14 +60,13 @@
                         </template>
                     </v-checkbox>
 
+
                     <router-link :to="{ name: 'cart' }"
                         class="d-flex justify-center w-full py-3 px-4 text-center rounded-pill text-uppercase text-grey-darken-4 bg-grey-lighten-3 text-body-2 font-weight-medium mb-2 letter-spacing-3 view-cart-btn">
                         View cart
                     </router-link>
-                    <v-btn variant="plain" :disabled="!agree"
-                        class="opacity-100 d-flex justify-center py-3 px-4 text-center rounded-pill text-uppercase text-white text-body-2 font-weight-medium letter-spacing-3 check-out-btn">
-                        Check out
-                    </v-btn>
+
+                    <Checkout :agree="!agree" />
 
                 </div>
 
@@ -96,7 +95,8 @@ import { Icon } from '@iconify/vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import CartProduct from './CartProduct.vue';
 import { useCartStore } from '@/stores/useCartStore';
-import type { Product } from '@/types';
+import type { CartItem } from '@/types';
+import Checkout from '../Buttons/Checkout.vue';
 
 const { isActiveCartMenu, toggleCartMenu } = useCartMenu();
 const cartStore = useCartStore();
@@ -119,7 +119,7 @@ const freeShippingCalc = computed(() => {
 
 const totalCartPrice = computed(() => {
     let total = 0;
-    cart.value.forEach((item: Product) => {
+    cart.value.forEach((item: CartItem) => {
         let price = 0;
         if (item?.discountPercentage) {
             price = (item.price - (item.price * item.discountPercentage) / 100) * item.quantity;
@@ -180,18 +180,8 @@ const totalCartPrice = computed(() => {
     background-color: #BDBDBD !important;
 }
 
-.check-out-btn {
-    background-color: #0dcaf0;
-    width: 100%;
-    height: auto !important;
-}
-
-.check-out-btn:disabled {
-    background-color: #60dff8;
-}
-
-.check-out-btn:hover {
-    background-color: #0baccc !important;
+::v-deep .checkbox-agree .v-input__details {
+    display: none !important;
 }
 
 .cart-empty {

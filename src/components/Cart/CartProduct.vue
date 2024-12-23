@@ -15,7 +15,7 @@
                     }} X {{ product.quantity }}
                 </span>
                 <span class="text-grey-darken-2 font-weight-regular text-caption" v-else>
-                    $ {{ (product?.price).toFixed(2) }} X {{ product?.quantity }}
+                    $ {{ product?.price ? (product?.price).toFixed(2) : 0 }} X {{ product?.quantity }}
                 </span>
             </v-card-subtitle>
 
@@ -33,12 +33,12 @@
                 </span>
             </v-card-subtitle>
 
-            <div class="d-flex ga-4 align-center justify-space-between">
+            <div class="d-flex ga-4 align-center justify-space-between mt-2">
 
                 <Quantity cartQuantity="cart" :product="product" />
 
                 <v-btn size="x-small" variant="plain" base-color="#424242" rounded="circle" :ripple="false"
-                    class="opacity-100 pa-0 mt-3" height="20" width="20" @click="cart.removeFromCart(product)">
+                    class="opacity-100 pa-0" height="20" width="20" @click="cart.removeFromCart(product)">
                     <Icon icon="iconamoon:trash" width="20"></Icon>
                 </v-btn>
             </div>
@@ -61,10 +61,14 @@ const props = defineProps<{
 }>();
 
 const totalProductPrice = computed(() => {
-    if (props.product?.discountPercentage) {
-        return ((props.product?.price - props.product?.price * (props.product?.discountPercentage / 100)) * props.product?.quantity).toFixed(2);
+    const quantity = props.product?.quantity ?? 0;
+    const price = props.product?.price ?? 0;
+    const discountPercentage = props.product?.discountPercentage ?? 0;
+
+    if (discountPercentage) {
+        return ((price - price * (discountPercentage / 100)) * quantity).toFixed(2);
     } else {
-        return (props.product?.price * props.product?.quantity).toFixed(2);
+        return (price * quantity).toFixed(2);
     }
 });
 

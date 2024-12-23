@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import BlogCard from '../Blog/BlogCard.vue';
-import SectionHeading from '../SectionHeading.vue';
+import SectionHeading from '../Global/SectionHeading.vue';
 const sectionHead = "Lates from Blog";
 
 const blogInfo = [

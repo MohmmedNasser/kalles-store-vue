@@ -26,7 +26,7 @@
 <script setup lang="ts">
 
 import ProductCard from '@/components/Products/ProductCard.vue';
-import SectionHeading from '@/components/SectionHeading.vue';
+import SectionHeading from '@/components/Global/SectionHeading.vue';
 import { onMounted, ref, watch } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from "swiper/modules";

@@ -1,5 +1,6 @@
 <template>
-    <div class="rounded-pill border border-opacity-50 d-inline-flex align-center mt-4">
+    <div class="rounded-pill border border-opacity-50 d-inline-flex align-center"
+        :class="[cartQuantity == 'cart' ? 'mt-0' : 'mt-4']">
 
         <v-btn class="minus opacity-100 pa-0 rounded-pill" size="x-small" variant="plain" base-color="#000000"
             height="30" width="20" :ripple="false" @click="decreaseQuantity">

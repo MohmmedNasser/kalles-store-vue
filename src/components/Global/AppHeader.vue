@@ -27,7 +27,8 @@
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false">
                             <Icon icon="solar:heart-angle-line-duotone" width="25" />
-                            <v-badge color="#222222" content="3" class="text-body-2" floating location="top"></v-badge>
+                            <v-badge color="#222222" content="3" class="text-body-2 cursor-none" floating
+                                location="top"></v-badge>
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false" @click="toggleCartMenu">

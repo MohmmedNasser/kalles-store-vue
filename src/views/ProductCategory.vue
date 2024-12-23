@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import ProductCard from '@/components/Products/ProductCard.vue';
-import SectionHeading from '@/components/SectionHeading.vue';
+import SectionHeading from '@/components/Global/SectionHeading.vue';
 import useCategory from '@/composables/useCategory';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';

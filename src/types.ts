@@ -44,3 +44,11 @@ export interface Product {
     thumbnail: string;
     quantity?: number;
 }
+
+export interface CartItem {
+    thumbnail: string;
+    title: string;
+    price: number;
+    quantity: number;
+    discountPercentage?: number;
+}

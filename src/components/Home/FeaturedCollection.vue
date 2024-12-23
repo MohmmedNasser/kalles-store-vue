@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
-import SectionHeading from '../SectionHeading.vue';
+import SectionHeading from '../Global/SectionHeading.vue';
 import api from '@/api';
 import useProduct from '@/composables/useProduct';
 

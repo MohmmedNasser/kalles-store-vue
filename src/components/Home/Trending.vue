@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import useProduct from '@/composables/useProduct';
-import SectionHeading from '../SectionHeading.vue';
+import SectionHeading from '../Global/SectionHeading.vue';
 import { defineAsyncComponent, onMounted, ref } from 'vue';
 
 const ProductCard = defineAsyncComponent(() => import('../Products/ProductCard.vue'));

@@ -3,7 +3,8 @@
         <v-container>
             <v-row align="center">
                 <v-col cols="4" class="pa-0">
-                    <Icon icon="hugeicons:menu-02" class="text-black" width="25" @click="toggleMenuFun"></Icon>
+                    <Icon icon="hugeicons:menu-02" class="text-black cursor-pointer" width="25" @click="toggleMenuFun">
+                    </Icon>
                 </v-col>
                 <v-col cols="4" class="pa-0 text-center">
                     <router-link :to="{ name: 'home' }">
@@ -22,8 +23,14 @@
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false">
+                            <Icon icon="solar:heart-angle-line-duotone" width="25" />
+                            <v-badge color="#222222" content="3" class="text-body-2" floating location="top"></v-badge>
+                        </v-btn>
+                        <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
+                            :ripple="false" @click="toggleCartMenu">
                             <Icon icon="solar:bag-4-linear" width="25" />
-                            <v-badge color="#222222" content="5" floating location="top start"></v-badge>
+                            <v-badge color="#222222" :content="cartStore.countCartItems" floating location="top start"
+                                v-if="cartStore.countCartItems > 0"></v-badge>
                         </v-btn>
                     </div>
                 </v-col>
@@ -33,9 +40,13 @@
 </template>
 
 <script setup lang="ts">
+import useCartMenu from '@/composables/useCartMenu';
 import { useMenuStore } from '@/stores/menu';
+import { useCartStore } from '@/stores/useCartStore';
 import { Icon } from '@iconify/vue';
 
+const cartStore = useCartStore()
+const { toggleCartMenu } = useCartMenu();
 const useMenu = useMenuStore();
 const { toggleMenu } = useMenu;
 

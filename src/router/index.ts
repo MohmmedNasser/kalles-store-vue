@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
+import { useCartStore } from '@/stores/useCartStore';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,8 +35,21 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: () => import('../views/Cart.vue'),
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: () => import('../views/Checkout.vue'),
     }
   ],
 })
+
+router.beforeEach((to, from, next) => {
+  const cartStore = useCartStore();
+  if (to.name === 'cart' && cartStore.cartItems.length === 0) {
+    return next({ name: 'home' });
+  }
+  next();
+});
 
 export default router

@@ -1,9 +1,10 @@
+import type { CartItem } from '@/types'
 import { defineStore } from 'pinia'
 
 export const useCartStore = defineStore('cart', {
     state: () => {
         return {
-            cartItems: []
+            cartItems: [] as CartItem[]
         }
     },
     getters: {
