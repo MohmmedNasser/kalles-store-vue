@@ -135,7 +135,7 @@ defineProps<{
 </script>
 
 <style scoped>
-::v-deep .v-skeleton-loader__text+.v-skeleton-loader__text {
+:deep(.v-skeleton-loader__text+.v-skeleton-loader__text) {
     margin-top: 0;
 }
 </style>

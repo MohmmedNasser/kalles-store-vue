@@ -82,7 +82,7 @@ const totalCartPrice = computed(() => {
     min-width: 180px;
 }
 
-::v-deep .checkbox-agree .v-input__details {
+:deep(.checkbox-agree .v-input__details) {
     display: none !important;
 }
 </style>

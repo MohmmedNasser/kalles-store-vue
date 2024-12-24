@@ -180,7 +180,7 @@ const totalCartPrice = computed(() => {
     background-color: #BDBDBD !important;
 }
 
-::v-deep .checkbox-agree .v-input__details {
+:deep(.checkbox-agree .v-input__details) {
     display: none !important;
 }
 

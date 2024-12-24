@@ -48,7 +48,7 @@ defineProps<{
     align-items: flex-start;
 }
 
-.tabs-img-loader ::v-deep .v-skeleton-loader .v-skeleton-loader__image {
+.tabs-img-loader :deep(.v-skeleton-loader .v-skeleton-loader__image) {
     height: 500px;
 }
 </style>
