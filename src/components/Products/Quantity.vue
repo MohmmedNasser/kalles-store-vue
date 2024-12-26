@@ -30,7 +30,7 @@ const cartStore = useCartStore();
 
 const props = defineProps<{
     id?: any,
-    product?: Product,
+    product?: Product | any,
     cartQuantity?: string,
 }>();
 

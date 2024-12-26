@@ -37,6 +37,11 @@ const router = createRouter({
       component: () => import('../views/Cart.vue'),
     },
     {
+      path: '/wishlist',
+      name: 'wishlist',
+      component: () => import('../views/Wshlist.vue'),
+    },
+    {
       path: '/checkout',
       name: 'checkout',
       component: () => import('../views/Checkout.vue'),
@@ -46,7 +51,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const cartStore = useCartStore();
-  if (to.name === 'cart' && cartStore.cartItems.length === 0) {
+  if ((to.name === 'cart' || to.name === 'checkout') && cartStore.cartItems.length === 0) {
     return next({ name: 'home' });
   }
   next();

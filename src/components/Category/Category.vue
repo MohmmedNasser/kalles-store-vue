@@ -34,6 +34,7 @@
 
 <script setup lang="ts">
 import useCategory from '@/composables/useCategory';
+import type { Category } from '@/types';
 import { onMounted, ref } from 'vue';
 
 defineProps<{
@@ -41,7 +42,7 @@ defineProps<{
 }>();
 
 const { fetchCategories } = useCategory();
-const categories = ref<Object>({});
+const categories = ref<Category[]>([]);
 
 onMounted(async () => {
     categories.value = await fetchCategories();
@@ -74,5 +75,10 @@ onMounted(async () => {
 
 .v-list-item a:hover {
     color: #56cfe1 !important;
+}
+
+.menu-list .router-link-active,
+.menu-navigation .router-link-active {
+    color: #0dcaf0 !important;
 }
 </style>

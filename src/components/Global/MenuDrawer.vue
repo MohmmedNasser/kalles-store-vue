@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer v-model="menuDrawer" temporary>
+    <v-navigation-drawer class="menu-navigation" v-model="menuDrawer" temporary>
         <v-list>
             <Category from="menu" />
         </v-list>

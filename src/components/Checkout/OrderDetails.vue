@@ -16,12 +16,12 @@
                 </thead>
 
                 <tbody>
-                    <tr>
+                    <tr v-for="(product, index) in cartStore.getCartItems" :key="index">
                         <td class="text-left font-weight-light px-0">
-                            Black mountain hat x <span class="font-weight-medium">10</span>
+                            {{ product?.title }} x <span class="font-weight-medium">{{ product?.quantity }}</span>
                         </td>
                         <td class="text-end px-0">
-                            $50.00
+                            $ {{ productPrices[index] }}
                         </td>
                     </tr>
                     <tr>
@@ -29,7 +29,7 @@
                             Subtotal
                         </td>
                         <td class="text-end px-0">
-                            $85.00
+                            $ {{ totalCartPrice }}
                         </td>
                     </tr>
                     <tr>
@@ -37,7 +37,7 @@
                             Shipping
                         </td>
                         <td class="text-end px-0">
-                            $50.00
+                            {{ calacShipping ? "Free Shipping" : `$ ${shippingPrice} ` }}
                         </td>
                     </tr>
                     <tr>
@@ -45,7 +45,7 @@
                             Total
                         </td>
                         <td class="text-end px-0">
-                            $145.00
+                            $ {{ calacShipping ? totalCartPrice : totalPrice }}
                         </td>
                     </tr>
                 </tbody>
@@ -152,10 +152,24 @@
 
 <script setup lang="ts">
 import CheckoutSectionHead from '@/components/Checkout/CheckoutSectionHead.vue';
-import { ref } from 'vue';
+import { useCartCalculations } from '@/composables/useCartCalculations';
+import { useCartStore } from '@/stores/useCartStore';
+import { computed, ref } from 'vue';
 
 const paymentType = ref('directTransfer');
 const agree = ref(false);
+
+const calacShipping = computed(() => {
+    return totalCartPrice.value >= freeShippingPrice.value ? true : false;
+});
+
+const totalPrice = computed((): number => {
+    return Number(totalCartPrice.value) + Number(shippingPrice.value);
+})
+
+const cartStore = useCartStore();
+
+const { productPrices, totalCartPrice, freeShippingPrice, shippingPrice } = useCartCalculations();
 
 </script>
 

@@ -64,22 +64,22 @@
 <script setup lang="ts">
 import Quantity from '@/components/Products/Quantity.vue';
 import { Icon } from '@iconify/vue';
-import { computed } from 'vue';
-import type { CartItem } from '@/types';
 import { useCartStore } from '@/stores/useCartStore';
+import { useCartCalculations } from '@/composables/useCartCalculations';
 
 const cartStore = useCartStore();
+const { productPrices } = useCartCalculations();
 
-const productPrices = computed(() =>
-    cartStore.getCartItems.map((product: CartItem) => {
-        const quantity = product.quantity || 0;
-        if (product.discountPercentage) {
-            return ((product.price - product.price * (product.discountPercentage / 100)) * quantity).toFixed(2);
-        } else {
-            return (product.price * quantity).toFixed(2);
-        }
-    })
-);
+// const productPrices = computed(() =>
+//     cartStore.getCartItems.map((product: CartItem) => {
+//         const quantity = product.quantity || 0;
+//         if (product.discountPercentage) {
+//             return ((product.price - product.price * (product.discountPercentage / 100)) * quantity).toFixed(2);
+//         } else {
+//             return (product.price * quantity).toFixed(2);
+//         }
+//     })
+// );
 </script>
 
 <style scoped></style>

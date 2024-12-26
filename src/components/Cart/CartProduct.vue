@@ -57,7 +57,7 @@ import { computed } from 'vue';
 const cart = useCartStore();
 
 const props = defineProps<{
-    product?: Product
+    product?: Product | any
 }>();
 
 const totalProductPrice = computed(() => {

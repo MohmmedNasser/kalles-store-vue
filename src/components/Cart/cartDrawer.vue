@@ -95,14 +95,13 @@ import { Icon } from '@iconify/vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import CartProduct from './CartProduct.vue';
 import { useCartStore } from '@/stores/useCartStore';
-import type { CartItem } from '@/types';
 import Checkout from '../Buttons/Checkout.vue';
+import { useCartCalculations } from '@/composables/useCartCalculations';
 
 const { isActiveCartMenu, toggleCartMenu } = useCartMenu();
 const cartStore = useCartStore();
 const agree = ref<boolean>(false);
-const freeShipping = ref<number>(5000);
-
+const { totalCartPrice, freeShippingPrice } = useCartCalculations();
 const cart = ref(cartStore.getCartItems);
 
 onMounted(() => {
@@ -114,22 +113,22 @@ watch(() => cartStore.getCartItems, () => {
 });
 
 const freeShippingCalc = computed(() => {
-    return parseFloat((freeShipping.value - totalCartPrice.value).toFixed(2));
+    return parseFloat((freeShippingPrice.value - totalCartPrice.value).toFixed(2));
 });
 
-const totalCartPrice = computed(() => {
-    let total = 0;
-    cart.value.forEach((item: CartItem) => {
-        let price = 0;
-        if (item?.discountPercentage) {
-            price = (item.price - (item.price * item.discountPercentage) / 100) * item.quantity;
-        } else {
-            price = item.price * item.quantity;
-        }
-        total += Math.round(price * 100) / 100;
-    });
-    return Math.round(total * 100) / 100;
-});
+// const totalCartPrice = computed(() => {
+//     let total = 0;
+//     cart.value.forEach((item: CartItem) => {
+//         let price = 0;
+//         if (item?.discountPercentage) {
+//             price = (item.price - (item.price * item.discountPercentage) / 100) * item.quantity;
+//         } else {
+//             price = item.price * item.quantity;
+//         }
+//         total += Math.round(price * 100) / 100;
+//     });
+//     return Math.round(total * 100) / 100;
+// });
 
 </script>
 

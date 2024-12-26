@@ -52,3 +52,8 @@ export interface CartItem {
     quantity: number;
     discountPercentage?: number;
 }
+
+export interface Category {
+    slug: string;
+    name: string;
+}
