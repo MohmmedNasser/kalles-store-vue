@@ -27,7 +27,8 @@
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false" @click="router.push({ name: 'wishlist' })">
                             <Icon icon="solar:heart-angle-line-duotone" width="25" />
-                            <v-badge color="#222222" content="3" class="text-body-2" floating location="top"></v-badge>
+                            <v-badge color="#222222" :content="wishlistStore.countwishList" class="text-body-2" floating
+                                location="top"></v-badge>
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false" @click="toggleCartMenu"
@@ -50,9 +51,11 @@ import Category from '../Category/Category.vue';
 import useCartMenu from '@/composables/useCartMenu';
 import { useCartStore } from '@/stores/useCartStore';
 import { useRoute, useRouter } from 'vue-router';
+import { useWishlistStore } from '@/stores/useWishlistStore';
 
 const { toggleCartMenu } = useCartMenu();
 const cartStore = useCartStore()
+const wishlistStore = useWishlistStore();
 const route = useRoute();
 const router = useRouter();
 

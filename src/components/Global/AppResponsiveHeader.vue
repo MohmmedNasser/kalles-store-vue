@@ -23,7 +23,8 @@
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false" @click="router.push({ name: 'wishlist' })">
                             <Icon icon="solar:heart-angle-line-duotone" width="25" />
-                            <v-badge color="#222222" content="3" class="text-body-2" floating location="top"></v-badge>
+                            <v-badge color="#222222" :content="wishlistStore.countwishList" class="text-body-2" floating
+                                location="top"></v-badge>
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
                             :ripple="false" @click="toggleCartMenu"
@@ -43,10 +44,12 @@
 import useCartMenu from '@/composables/useCartMenu';
 import { useMenuStore } from '@/stores/menu';
 import { useCartStore } from '@/stores/useCartStore';
+import { useWishlistStore } from '@/stores/useWishlistStore';
 import { Icon } from '@iconify/vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const cartStore = useCartStore()
+const cartStore = useCartStore();
+const wishlistStore = useWishlistStore();
 const { toggleCartMenu } = useCartMenu();
 const useMenu = useMenuStore();
 const { toggleMenu } = useMenu;

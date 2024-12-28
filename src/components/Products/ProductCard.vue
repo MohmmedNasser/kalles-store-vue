@@ -10,6 +10,11 @@
                     Quick View
                 </v-btn>
 
+                <v-btn class="delete-btn text-capitalize font-weight-regular px-0" rounded="circle" width="33"
+                    height="33" elevation="0" color="white" :ripple="false" v-if="wishList">
+                    <Icon icon="icon-park-outline:delete" width="15" color="#222222"></Icon>
+                </v-btn>
+
             </div>
 
             <v-card-title tag="p" class="pa-0 text-wrap mb-1 mt-2 text-grey-darken-4" style="line-height: 1;">
@@ -50,10 +55,13 @@
 <script setup lang="ts">
 import useDialog from '@/composables/useDialog';
 import { ref } from 'vue';
+import { Icon } from '@iconify/vue';
 import type { Product } from '@/types';
 
 const props = defineProps<{
     products: Product,
+    wishList?: boolean
+
 }>();
 
 const showItem = ref<any>({});
@@ -84,6 +92,15 @@ const handleQuickView = () => {
     z-index: 2;
     opacity: 0;
     visibility: hidden;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: 0.5s;
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .product-card:hover .quick-view-btn {
