@@ -66,9 +66,18 @@ import Quantity from '@/components/Products/Quantity.vue';
 import { Icon } from '@iconify/vue';
 import { useCartStore } from '@/stores/useCartStore';
 import { useCartCalculations } from '@/composables/useCartCalculations';
+import { watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 const cartStore = useCartStore();
 const { productPrices } = useCartCalculations();
+const router = useRouter();
+
+watch(cartStore, (cart) => {
+    if (cart.getCartItems.length == 0) {
+        router.push({ name: 'home' });
+    }
+})
 
 // const productPrices = computed(() =>
 //     cartStore.getCartItems.map((product: CartItem) => {

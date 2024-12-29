@@ -1,5 +1,7 @@
 import type { CartItem } from '@/types'
 import { defineStore } from 'pinia'
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export const useCartStore = defineStore('cart', {
     state: () => {
@@ -24,13 +26,15 @@ export const useCartStore = defineStore('cart', {
                 item.quantity = quantity;
                 this.cartItems.push(item);
             }
+            toast.success("Product added to the cart");
         },
         incrementQ(item: any) {
             let index = this.cartItems.findIndex((product: any) => product.id === item.id)
             if (index !== -1) {
-                this.cartItems[index].quantity += 1
+                this.cartItems[index].quantity += 1;
+                toast.success("Product quantity increased");
             } else {
-                // console.log('Item not found');
+                toast.error("Product not found");
             }
         },
         decrementQ(item: any) {
@@ -40,12 +44,14 @@ export const useCartStore = defineStore('cart', {
                 if (this.cartItems[index].quantity === 0) {
                     this.cartItems = this.cartItems.filter(product => product.id !== item.id)
                 }
+                toast.success("Product quantity decreased");
             } else {
-                // console.log('Item not found');
+                toast.error("Product not found");
             }
         },
         removeFromCart(item: any) {
-            this.cartItems = this.cartItems.filter((product: any) => product.id !== item.id)
+            this.cartItems = this.cartItems.filter((product: any) => product.id !== item.id);
+            toast.success("Product removed from the cart");
         }
     },
     persist: true,

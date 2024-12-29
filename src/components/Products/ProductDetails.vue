@@ -60,7 +60,7 @@
                     Add to cart
                 </v-btn>
                 <v-btn size="x-small" rounded="pill" variant="text" base-color="#222222" class="opacity-100 pa-1"
-                    height="36" :ripple="false" @click="handleAddToWhishList(product)"
+                    height="36" :ripple="false" @click="handleAddToWishList(product)"
                     :class="{ 'text-red-darken-4': isProductInWishList(product) }">
                     <Icon icon="solar:heart-angle-line-duotone" width="25" />
                 </v-btn>
@@ -117,18 +117,18 @@ const cartStore = useCartStore()
 
 const quantity = ref<any>(1);
 
-const whishListStore = useWishlistStore();
+const wishListStore = useWishlistStore();
 
 const handleAddToCart = (product: object) => {
     cartStore.addToCart(product, quantity.value);
 };
 
-const handleAddToWhishList = (product: object) => {
-    whishListStore.addToWishList(product)
+const handleAddToWishList = (product: object) => {
+    wishListStore.addToWishList(product)
 }
 
 const isProductInWishList = (product: object) => {
-    return whishListStore.getwishList.some((item) => item.id == product.id);
+    return wishListStore.getwishList.some((item) => item.id == product.id);
 }
 
 const updateQuantityFun = (newQuantity: Number) => {

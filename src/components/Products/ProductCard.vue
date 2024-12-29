@@ -11,7 +11,8 @@
                 </v-btn>
 
                 <v-btn class="delete-btn text-capitalize font-weight-regular px-0" rounded="circle" width="33"
-                    height="33" elevation="0" color="white" :ripple="false" v-if="wishList">
+                    height="33" elevation="0" color="white" :ripple="false" v-if="wishList"
+                    @click="removeProductFromWishList(products)">
                     <Icon icon="icon-park-outline:delete" width="15" color="#222222"></Icon>
                 </v-btn>
 
@@ -57,6 +58,7 @@ import useDialog from '@/composables/useDialog';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import type { Product } from '@/types';
+import { useWishlistStore } from '@/stores/useWishlistStore';
 
 const props = defineProps<{
     products: Product,
@@ -67,10 +69,17 @@ const props = defineProps<{
 const showItem = ref<any>({});
 
 const { openDialog } = useDialog();
+const wishListStore = useWishlistStore();
 
+const emit = defineEmits(['deleteWishList']);
 
 const handleQuickView = () => {
     openDialog(props.products);
+}
+
+const removeProductFromWishList = (product: Object) => {
+    emit('deleteWishList', product);
+    wishListStore.removeWishList(product);
 }
 
 // const emit = defineEmits(['openQuickView']);

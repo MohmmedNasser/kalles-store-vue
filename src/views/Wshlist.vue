@@ -10,22 +10,32 @@
                     :items="gridOptions" @change="setItemsPerRow" />
             </div> -->
 
-            <div class="mb-5 mt-10 d-flex justify-center align-center ga-4">
+            <template v-if="product.length > 0">
+                <div class="mb-5 mt-10 d-flex justify-center align-center ga-4">
+                    <v-btn variant="plain" density="compact" v-for="option in gridOptions" :key="option"
+                        :class="{ active: itemsPerRow === option }" :ripple="false" class="grid-btn opacity-100 pa-0"
+                        @click="setItemsPerRow(option)">
+                        <div class="grid-list d-flex align-center">
+                            <span v-for="_ in option" class="grid-item"></span>
+                        </div>
+                    </v-btn>
+                </div>
 
-                <v-btn variant="plain" density="compact" v-for="option in gridOptions" :key="option"
-                    :class="{ active: itemsPerRow === option }" :ripple="false" class="grid-btn opacity-100 pa-0"
-                    @click="setItemsPerRow(option)">
-                    <div class="grid-list d-flex align-center">
-                        <span v-for="_ in option" class="grid-item"></span>
-                    </div>
-                </v-btn>
+                <div class="wishlist-grid" :style="{ gridTemplateColumns: `repeat(${itemsPerRow}, 1fr)` }"
+                    :key="itemsPerRow">
+                    <ProductCard :wishList="wishList" :products="item" v-for="item, index in product" :key="index"
+                        @deleteWishList="handleWishlistUpdate" />
+                </div>
+            </template>
+            <template v-else>
+                <div class="d-flex flex-column align-center justify-center no-items">
+                    <Icon icon="hugeicons:package-out-of-stock" width="80" color="#878787"></Icon>
+                    <h1 class="text-body-1 font-weight-regular text-grey-darken-2 mt-2">
+                        No items in wishList
+                    </h1>
+                </div>
+            </template>
 
-            </div>
-
-            <div class="whishlist-grid" :style="{ gridTemplateColumns: `repeat(${itemsPerRow}, 1fr)` }"
-                :key="itemsPerRow">
-                <ProductCard :wishList="wishList" :products="item" v-for="item, index in product" :key="index" />
-            </div>
         </v-container>
     </section>
 
@@ -34,18 +44,22 @@
 <script setup lang="ts">
 import ProductCard from '@/components/Products/ProductCard.vue';
 import { useWishlistStore } from '@/stores/useWishlistStore';
+import { Icon } from '@iconify/vue';
 import { ref } from 'vue';;
 
 const itemsPerRow = ref(4);
 const gridOptions = ref([2, 3, 4, 5, 6]);
 const wishList = ref(true);
-const product = useWishlistStore().getwishList;
+const product = ref(useWishlistStore().getwishList);
 
 
 const setItemsPerRow = (option: number) => {
     itemsPerRow.value = option
 };
 
+const handleWishlistUpdate = (removedProduct: Object) => {
+    product.value = product.value.filter(item => item.id !== removedProduct.id);
+}
 </script>
 
 <style scoped>
@@ -78,7 +92,7 @@ const setItemsPerRow = (option: number) => {
     background: #222222;
 }
 
-.whishlist-grid {
+.wishlist-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 5px;
@@ -86,5 +100,9 @@ const setItemsPerRow = (option: number) => {
 
 :deep(.product-card .product-img) {
     width: 100% !important;
+}
+
+.no-items {
+    margin: 100px 0;
 }
 </style>
