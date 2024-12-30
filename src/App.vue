@@ -9,6 +9,7 @@
         <AppFooter />
         <QuickView v-if="isDialogOpen" />
         <CartDrawer />
+        <PaymenySuccessDialog v-if="isPaymenyDialogOpen" />
     </v-layout>
 </template>
 
@@ -19,13 +20,14 @@ import { onMounted, ref, defineAsyncComponent } from 'vue';
 import AppResponsiveHeader from './components/Global/AppResponsiveHeader.vue';
 import MenuDrawer from './components/Global/MenuDrawer.vue';
 import useDialog from './composables/useDialog';
-import CartDrawer from './components/Cart/cartDrawer.vue';
+import CartDrawer from './components/Cart/CartDrawer.vue';
 
 const mobileView = ref(false);
 const windowWidth = ref(window.innerWidth);
-const { isDialogOpen } = useDialog();
+const { isDialogOpen, isPaymenyDialogOpen } = useDialog();
 
 const QuickView = defineAsyncComponent(() => import('@/components/Products/QuickView.vue'));
+const PaymenySuccessDialog = defineAsyncComponent(() => import('@/components/Checkout/PaymenySuccessDialog.vue'));
 
 const getWindowWidth = () => {
     windowWidth.value = window.innerWidth;

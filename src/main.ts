@@ -16,7 +16,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-const options = {
+const toastOptions = {
     timeout: 2000,
     position: "bottom-left",
     pauseOnHover: false,
@@ -31,7 +31,7 @@ const pinia = createPinia();
 const app = createApp(App)
 
 pinia.use(piniaPluginPersistedstate)
-app.use(Toast, options);
+app.use(Toast, toastOptions)
 app.use(pinia)
 app.use(vuetify)
 app.use(router)

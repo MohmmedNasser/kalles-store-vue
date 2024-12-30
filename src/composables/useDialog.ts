@@ -2,6 +2,7 @@ import { ref } from "vue";
 import type { Product } from '@/types';
 
 const isDialogOpen = ref(false);
+const isPaymenyDialogOpen = ref(false);
 const selectedProduct = ref<Product | null>(null);
 
 export default function useDialog() {
@@ -16,10 +17,16 @@ export default function useDialog() {
         selectedProduct.value = null;
     };
 
+    const openPaymenyDialog = () => {
+        isPaymenyDialogOpen.value = true;
+    }
+
     return {
         openDialog,
         closeDialog,
         isDialogOpen,
-        selectedProduct
+        selectedProduct,
+        isPaymenyDialogOpen,
+        openPaymenyDialog
     }
 }

@@ -16,6 +16,9 @@ export const useCartStore = defineStore('cart', {
         getCartItems(state) {
             return state.cartItems
         },
+        removeCartItems(state) {
+            return state.cartItems = [];
+        }
     },
     actions: {
         addToCart(item: any, quantity: number) {

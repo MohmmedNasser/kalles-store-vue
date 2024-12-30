@@ -36,7 +36,12 @@
                             <Icon icon="solar:bag-4-linear" width="25" />
                             <v-badge color="#222222" :content="cartStore.countCartItems" floating location="top"
                                 v-if="cartStore.countCartItems > 0"></v-badge>
-
+                        </v-btn>
+                        <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
+                            :ripple="false" @click="router.push({ name: 'cart' })" v-else>
+                            <Icon icon="solar:bag-4-linear" width="25" />
+                            <v-badge color="#222222" :content="cartStore.countCartItems" floating location="top"
+                                v-if="cartStore.countCartItems > 0"></v-badge>
                         </v-btn>
                     </div>
                 </v-col>

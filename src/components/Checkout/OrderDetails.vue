@@ -97,9 +97,10 @@
                                         <label for="cardNumber" class="font-weight-regular text-body-2">
                                             Card Number*
                                         </label>
-                                        <v-text-field id="cardNumber" class="mt-2 bg-white text-body-2 payinput"
+                                        <!-- <v-text-field id="cardNumber" class="mt-2 bg-white text-body-2 payinput"
                                             rounded="md" density="compact" placeholder="1234 1234 1234 1234"
-                                            variant="outlined"></v-text-field>
+                                            variant="outlined"></v-text-field> -->
+                                        <div id="card-number" class="mt-2 bg-white text-body-2 px-2 py-3 "></div>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -108,18 +109,23 @@
                                         <label for="expiryDate" class="font-weight-regular text-body-2">
                                             Expiry Date *
                                         </label>
-                                        <v-text-field id="expiryDate" class="mt-2 bg-white text-body-2 payinput"
+                                        <!-- <v-text-field id="expiryDate" class="mt-2 bg-white text-body-2 payinput"
                                             rounded="md" density="compact" placeholder="MM/YY"
-                                            variant="outlined"></v-text-field>
+                                            variant="outlined"></v-text-field> -->
+                                        <div id="card-expiry" class="mt-2 bg-white text-body-2 px-2 py-3"></div>
                                     </v-col>
                                     <v-col cols="6">
 
                                         <label for="cardCode" class="font-weight-regular text-body-2">
                                             Card Code (CVC) *
                                         </label>
-                                        <v-text-field id="cardCode" class="mt-2 bg-white text-body-2 payinput"
+                                        <!-- <v-text-field id="cardCode" class="mt-2 bg-white text-body-2 payinput"
                                             rounded="md" density="compact" placeholder="CVC"
-                                            variant="outlined"></v-text-field>
+                                            variant="outlined"></v-text-field> -->
+                                        <div id="card-cvc" class="mt-2 bg-white text-body-2 px-2 py-3"></div>
+                                    </v-col>
+                                    <v-col cols="12 py-0">
+                                        <div id="card-error" class="text-red-lighten-1 text-subtitle-2"></div>
                                     </v-col>
                                 </v-row>
                             </div>
@@ -139,9 +145,10 @@
                             </div>
                         </template>
                     </v-checkbox>
-                    <v-btn variant="plain" :disabled="!agree"
-                        class="opacity-100 d-flex justify-center mt-3 py-5 px-4 text-center rounded-pill text-uppercase text-white text-body-2 font-weight-medium letter-spacing-3 check-out-btn">
-                        PLACE ORDER
+                    <v-btn variant="plain" id="custom-button" :disabled="!agree || isProcessing"
+                        class="opacity-100 d-flex justify-center mt-3 py-5 px-4 text-center rounded-pill text-uppercase text-white text-body-2 font-weight-medium letter-spacing-3 check-out-btn"
+                        @click="createToken">
+                        {{ isProcessing ? 'Processing...' : 'PLACE ORDER' }}
                     </v-btn>
                 </div>
             </div>
@@ -153,11 +160,104 @@
 <script setup lang="ts">
 import CheckoutSectionHead from '@/components/Checkout/CheckoutSectionHead.vue';
 import { useCartCalculations } from '@/composables/useCartCalculations';
+import useDialog from '@/composables/useDialog';
 import { useCartStore } from '@/stores/useCartStore';
-import { computed, ref } from 'vue';
+import { loadStripe } from '@stripe/stripe-js';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const paymentType = ref('directTransfer');
 const agree = ref(false);
+const { openPaymenyDialog } = useDialog();
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+const cardNumberElement = ref<any>(null);
+const cardExpiryElement = ref<any>(null);
+const cardCvcElement = ref<any>(null);
+const stripeInstance = ref<any>(null);
+const elementsInstance = ref<any>(null);
+const isProcessing = ref<any>(false);
+
+
+onMounted(async () => {
+    stripeInstance.value = await stripePromise;
+
+    if (!stripeInstance.value) {
+        console.error('Stripe failed to load');
+        return;
+    }
+
+    elementsInstance.value = stripeInstance.value.elements();
+
+    const style = {
+        base: {
+            color: '#222222',
+            fontFamily: 'Poppins',
+            fontSize: '14px',
+            '::placeholder': { color: '#aab7c4', fontSize: "14px" },
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a',
+        },
+    };
+
+    cardNumberElement.value = elementsInstance.value.create('cardNumber', { style });
+    cardNumberElement.value.mount('#card-number');
+
+    cardExpiryElement.value = elementsInstance.value.create('cardExpiry', { style });
+    cardExpiryElement.value.mount('#card-expiry');
+
+    cardCvcElement.value = elementsInstance.value.create('cardCvc', { style });
+    cardCvcElement.value.mount('#card-cvc');
+});
+
+onBeforeUnmount(() => {
+    if (cardNumberElement.value) cardNumberElement.value.destroy();
+    if (cardExpiryElement.value) cardExpiryElement.value.destroy();
+    if (cardCvcElement.value) cardCvcElement.value.destroy();
+});
+
+const createToken = async () => {
+
+    if (paymentType.value == 'creditCard') {
+
+        if (!stripeInstance.value || !cardNumberElement.value) {
+            console.error('Stripe.js has not been initialized');
+            return;
+        }
+
+        isProcessing.value = true;
+
+        try {
+            const { token, error } = await stripeInstance.value.createToken(cardNumberElement.value);
+            if (error) {
+                // Display error
+                document.getElementById('card-error').textContent = error.message;
+                console.error('Token generation error:', error.message);
+            } else {
+                // Handle successful token generation
+                console.log('Generated Token:', token);
+                // alert('Token successfully generated!');
+                router.push({ name: 'home' });
+                cartStore.removeCartItems;
+                openPaymenyDialog();
+
+            }
+        } catch (err) {
+            console.error('Error generating token:', err);
+        } finally {
+            isProcessing.value = false;
+        }
+    } else {
+        // alert('Payment successfully');
+        router.push({ name: 'home' });
+        openPaymenyDialog();
+        cartStore.removeCartItems;
+    }
+};
 
 const calacShipping = computed(() => {
     return totalCartPrice.value >= freeShippingPrice.value ? true : false;
