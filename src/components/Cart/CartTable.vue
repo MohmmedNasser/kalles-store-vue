@@ -73,8 +73,8 @@ const cartStore = useCartStore();
 const { productPrices } = useCartCalculations();
 const router = useRouter();
 
-watch(cartStore, (cart) => {
-    if (cart.getCartItems.length == 0) {
+watch(() => cartStore.cartItems, (newCart, oldCart) => {
+    if (newCart.length === 0) {
         router.push({ name: 'home' });
     }
 })

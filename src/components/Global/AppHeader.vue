@@ -6,6 +6,9 @@
                     <router-link :to="{ name: 'home' }">
                         <img src="/images/kalles.svg" alt="kalles" title="kalles" loading="lazy" width="95">
                     </router-link>
+                    <!-- <v-btn @click="logout">
+                        logout
+                    </v-btn> -->
                 </v-col>
                 <v-col cols="8" class="pa-0 text-center">
                     <nav>
@@ -21,7 +24,7 @@
                             <Icon icon="prime:search" class="text-black" width="25" />
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="30"
-                            :ripple="false">
+                            :ripple="false" @click="toggleAuthMenu">
                             <Icon icon="prime:user" width="30" />
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
@@ -43,6 +46,12 @@
                             <v-badge color="#222222" :content="cartStore.countCartItems" floating location="top"
                                 v-if="cartStore.countCartItems > 0"></v-badge>
                         </v-btn>
+                        <router-link :to="{ name: 'about' }">About</router-link>
+
+                        <!-- <p v-if="user">
+                            {{ user?.username }}
+                        </p> -->
+
                     </div>
                 </v-col>
             </v-row>
@@ -57,12 +66,19 @@ import useCartMenu from '@/composables/useCartMenu';
 import { useCartStore } from '@/stores/useCartStore';
 import { useRoute, useRouter } from 'vue-router';
 import { useWishlistStore } from '@/stores/useWishlistStore';
+import useAuthMenu from '@/composables/useAuthMenu';
+import { useAuthStore } from '@/stores/useAuth';
+import { storeToRefs } from 'pinia';
 
 const { toggleCartMenu } = useCartMenu();
+const { toggleAuthMenu } = useAuthMenu();
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore();
 const route = useRoute();
 const router = useRouter();
+
+const { user } = storeToRefs(useAuthStore());
+const { logout } = useAuthStore();
 
 </script>
 

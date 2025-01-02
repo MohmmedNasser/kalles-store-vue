@@ -31,7 +31,7 @@
                 <div class="d-flex flex-column align-center justify-center no-items">
                     <Icon icon="hugeicons:package-out-of-stock" width="80" color="#878787"></Icon>
                     <h1 class="text-body-1 font-weight-regular text-grey-darken-2 mt-2">
-                        No items in wishList
+                        No items in WishList
                     </h1>
                 </div>
             </template>
