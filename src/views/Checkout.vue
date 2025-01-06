@@ -4,7 +4,7 @@
     </section>
     <section>
         <v-container>
-            <form class="mb-10">
+            <form class="mb-10" @submit="submit">
                 <v-row>
                     <v-col cols="7">
                         <div>
@@ -42,8 +42,13 @@
                                     <label for="countryRegion" class="font-weight-regular text-body-2">
                                         Country / Region *
                                     </label>
-                                    <v-select label="Country / Region" class="mt-3 text-body-2" rounded="pill"
-                                        :items="country" variant="outlined" density="compact"></v-select>
+                                    <v-select label="Country / Region" class="mt-3 text-body-2" name="country"
+                                        rounded="pill" :items="countries" variant="outlined"
+                                        density="compact"></v-select>
+                                    <div v-for="countryError in errorBag.country"
+                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-2">
+                                        {{ countryError }}
+                                    </div>
                                 </v-col>
                             </v-row>
 
@@ -53,11 +58,26 @@
                                         Street address *
                                     </label>
                                     <v-text-field class="mt-3 text-body-2" rounded="pill" density="compact"
-                                        label="House number and street name" variant="outlined"></v-text-field>
+                                        label="House number and street name" v-model="addressOne.value.value"
+                                        :error-messages="addressOne.errorMessage.value"
+                                        variant="outlined"></v-text-field>
+
+
+                                    <div v-for="addressOneError in errorBag.addressOne"
+                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-2">
+                                        {{ addressOneError }}
+                                    </div>
 
                                     <v-text-field class="mt-3 text-body-2" rounded="pill" density="compact"
-                                        label="Apartment, suites, unit, etc.(optional)"
+                                        label="Apartment, suites, unit, etc.(optional)" v-model="addressTwo.value.value"
+                                        :error-messages="addressTwo.errorMessage.value"
                                         variant="outlined"></v-text-field>
+
+                                    <div v-for="addressTwoError in errorBag.addressTwo"
+                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-2">
+                                        {{ addressTwoError }}
+                                    </div>
+
                                 </v-col>
                             </v-row>
 
@@ -138,9 +158,13 @@
 import CheckoutSectionHead from '@/components/Checkout/CheckoutSectionHead.vue';
 import OrderDetails from '@/components/Checkout/OrderDetails.vue';
 import PageHeading from '@/components/Global/PageHeading.vue';
+
+import { useForm, useField } from 'vee-validate';
+import { string, object } from 'yup';
+
 import { ref } from 'vue';
 
-const country = ref([
+const countries = ref([
     'United States',
     'United Kingdom',
     'Italy',
@@ -195,6 +219,23 @@ const state = ref([
     "Mississippi",
 ]);
 
+
+const validationSchema = object({
+    country: string().required("Please enter a country"),
+    addressOne: string().required('address 1 is required'),
+    addressTwo: string().required('address 2 is required'),
+});
+
+const { values, errorBag, handleSubmit } = useForm({
+    validationSchema
+});
+
+const addressOne = useField('email', validationSchema);
+const addressTwo = useField('password', validationSchema);
+
+const submit = handleSubmit(() => {
+    alert(JSON.stringify(values))
+})
 </script>
 
 <style scoped>

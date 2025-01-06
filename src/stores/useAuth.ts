@@ -1,15 +1,17 @@
 import api from '@/api';
 import useAuthMenu from '@/composables/useAuthMenu';
+import type { User } from '@/types';
 import { defineStore } from 'pinia'
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
 const { isActiveAuthMenu } = useAuthMenu();
 
+
 export const useAuthStore = defineStore('authStore', {
     state: () => {
         return {
-            user: null,
+            user: null as User | null,
             errors: {},
         }
     },
@@ -22,7 +24,6 @@ export const useAuthStore = defineStore('authStore', {
                             authorization: `Bearer ${localStorage.getItem("token")}`,
                         },
                     });
-                    // console.log("User Data:", res.data);
                     this.user = res.data
                 } catch (error: any) {
                     console.error("Failed to fetch user:", error.response?.data || error.message);
@@ -37,8 +38,8 @@ export const useAuthStore = defineStore('authStore', {
                 localStorage.setItem("token", response.data.accessToken);
                 this.user = response.data;
                 isActiveAuthMenu.value = false;
-                // console.log('login Success', response.data);
                 this.errors = {};
+                toast.success("You have successfully logged in");
 
             } catch (error: any) {
                 this.errors = error.response?.data?.message || 'Failed to login';
@@ -50,6 +51,7 @@ export const useAuthStore = defineStore('authStore', {
             this.user = null;
             localStorage.removeItem("token");
             localStorage.removeItem("authStore");
+            toast.success("You have successfully logged out");
         }
     },
     persist: true,

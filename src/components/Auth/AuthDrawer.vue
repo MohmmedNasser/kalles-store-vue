@@ -32,7 +32,7 @@
                         </v-text-field>
                     </div>
 
-                    <div v-if="useAuth.errors.length > 0" class="text-red text-body-2 mt-3">
+                    <div v-if="Object.keys(useAuth.errors).length > 0" class="text-red text-body-2 mt-3">
                         {{ useAuth.errors }}
                     </div>
 
@@ -84,22 +84,8 @@ const show2 = ref(true);
 
 const handleAuth = async () => {
     await useAuth.authenticate('login', auth);
-
-    // try {
-    //     const response = await api.post(`/auth/login`, {
-    //         username: auth.username,
-    //         password: auth.password
-    //     });
-    //     console.log('login Success', response.data);
-    //     // localStorage.setItem('authToken', response.data.token);
-    //     isActiveAuthMenu.value = false;
-    //     auth.username = "";
-    //     auth.password = "";
-
-    // } catch (error: any) {
-    //     errorMessage.value = error.response?.data?.message || 'Failed to login';
-    //     console.error('Failed to login:', error.response?.data || error.message);
-    // }
+    auth.username = '';
+    auth.password = '';
 }
 
 </script>

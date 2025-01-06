@@ -147,7 +147,7 @@
                     </v-checkbox>
                     <v-btn variant="plain" id="custom-button" :disabled="!agree || isProcessing"
                         class="opacity-100 d-flex justify-center mt-3 py-5 px-4 text-center rounded-pill text-uppercase text-white text-body-2 font-weight-medium letter-spacing-3 check-out-btn"
-                        @click="createToken">
+                        type="submit" @click.prevent="createToken">
                         {{ isProcessing ? 'Processing...' : 'PLACE ORDER' }}
                     </v-btn>
                 </div>
