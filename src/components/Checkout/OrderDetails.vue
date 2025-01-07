@@ -220,7 +220,15 @@ onBeforeUnmount(() => {
     if (cardCvcElement.value) cardCvcElement.value.destroy();
 });
 
+const props = defineProps(['submit']);
+
 const createToken = async () => {
+
+    const isValid = await props.submit();
+    if (!isValid) {
+        console.error('Validation failed');
+        return;
+    }
 
     if (paymentType.value == 'creditCard') {
 
@@ -263,8 +271,8 @@ const calacShipping = computed(() => {
     return totalCartPrice.value >= freeShippingPrice.value ? true : false;
 });
 
-const totalPrice = computed((): number => {
-    return Number(totalCartPrice.value) + Number(shippingPrice.value);
+const totalPrice = computed(() => {
+    return (Number(totalCartPrice.value) + Number(shippingPrice.value)).toFixed(2);
 })
 
 const cartStore = useCartStore();

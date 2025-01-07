@@ -4,7 +4,7 @@
     </section>
     <section>
         <v-container>
-            <form class="mb-10" @submit="submit">
+            <form class="mb-10">
                 <v-row>
                     <v-col cols="7">
                         <div>
@@ -42,12 +42,15 @@
                                     <label for="countryRegion" class="font-weight-regular text-body-2">
                                         Country / Region *
                                     </label>
-                                    <v-select label="Country / Region" class="mt-3 text-body-2" name="country"
+                                    <v-select label="Country / Region" class="mt-3 text-body-2" v-model="country"
                                         rounded="pill" :items="countries" variant="outlined"
                                         density="compact"></v-select>
-                                    <div v-for="countryError in errorBag.country"
-                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-2">
+                                    <!-- <div v-for="countryError in errorBag.country"
+                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-1">
                                         {{ countryError }}
+                                    </div> -->
+                                    <div v-if="getError('country')" class="text-red-darken-3 text-subtitle-2 mt-1 ps-1">
+                                        {{ getError('country') }}
                                     </div>
                                 </v-col>
                             </v-row>
@@ -58,25 +61,21 @@
                                         Street address *
                                     </label>
                                     <v-text-field class="mt-3 text-body-2" rounded="pill" density="compact"
-                                        label="House number and street name" v-model="addressOne.value.value"
-                                        :error-messages="addressOne.errorMessage.value"
+                                        label="House number and street name" v-model="address"
                                         variant="outlined"></v-text-field>
 
+                                    <div v-if="getError('address')" class="text-red-darken-3 text-subtitle-2 mt-1 ps-1">
+                                        {{ getError('address') }}
+                                    </div>
 
-                                    <div v-for="addressOneError in errorBag.addressOne"
+                                    <!-- <div v-for="addressOneError in errorBag.addressOne"
                                         class="text-red-darken-3 text-subtitle-2 mt-1 ps-2">
                                         {{ addressOneError }}
-                                    </div>
+                                    </div> -->
 
                                     <v-text-field class="mt-3 text-body-2" rounded="pill" density="compact"
-                                        label="Apartment, suites, unit, etc.(optional)" v-model="addressTwo.value.value"
-                                        :error-messages="addressTwo.errorMessage.value"
+                                        label="Apartment, suites, unit, etc.(optional)"
                                         variant="outlined"></v-text-field>
-
-                                    <div v-for="addressTwoError in errorBag.addressTwo"
-                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-2">
-                                        {{ addressTwoError }}
-                                    </div>
 
                                 </v-col>
                             </v-row>
@@ -96,8 +95,14 @@
                                     <label for="state" class="font-weight-regular text-body-2">
                                         State *
                                     </label>
-                                    <v-select label="State" class="mt-3 text-body-2" rounded="pill" :items="state"
-                                        variant="outlined" density="compact"></v-select>
+                                    <v-select label="State" id="state" class="mt-3 text-body-2" rounded="pill"
+                                        :items="state" variant="outlined" density="compact"
+                                        v-model="province"></v-select>
+
+                                    <div v-if="getError('province')"
+                                        class="text-red-darken-3 text-subtitle-2 mt-1 ps-1">
+                                        {{ getError('province') }}
+                                    </div>
                                 </v-col>
                             </v-row>
 
@@ -146,7 +151,7 @@
                         </div>
                     </v-col>
                     <v-col cols="5">
-                        <OrderDetails />
+                        <OrderDetails :submit="submit" />
                     </v-col>
                 </v-row>
             </form>
@@ -159,10 +164,15 @@ import CheckoutSectionHead from '@/components/Checkout/CheckoutSectionHead.vue';
 import OrderDetails from '@/components/Checkout/OrderDetails.vue';
 import PageHeading from '@/components/Global/PageHeading.vue';
 
-import { useForm, useField } from 'vee-validate';
+import { useForm } from 'vee-validate';
 import { string, object } from 'yup';
+import { useHead } from '@unhead/vue'
 
 import { ref } from 'vue';
+
+useHead({
+    title: 'Checkout | Kalles Ecommerce',
+});
 
 const countries = ref([
     'United States',
@@ -219,23 +229,33 @@ const state = ref([
     "Mississippi",
 ]);
 
-
 const validationSchema = object({
     country: string().required("Please enter a country"),
-    addressOne: string().required('address 1 is required'),
-    addressTwo: string().required('address 2 is required'),
+    address: string().required('Street address is required'),
+    province: string().required('State is required'),
 });
 
-const { values, errorBag, handleSubmit } = useForm({
+const { defineField, errorBag, handleSubmit, validate } = useForm({
     validationSchema
 });
 
-const addressOne = useField('email', validationSchema);
-const addressTwo = useField('password', validationSchema);
+const getError = (name: string) => {
+    const err = errorBag.value[name];
+    return err ? err[0] : false;
+}
+
+const [country] = defineField('country');
+const [address] = defineField('address');
+const [province] = defineField('province');
 
 const submit = handleSubmit(() => {
-    alert(JSON.stringify(values))
-})
+    const isValid = validate();
+    if (!isValid) {
+        console.error('Validation failed:', errorBag.value);
+        return false;
+    }
+    return true;
+});
 </script>
 
 <style scoped>

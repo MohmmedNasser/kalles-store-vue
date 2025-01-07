@@ -27,13 +27,23 @@
 import ProductCard from '@/components/Products/ProductCard.vue';
 import SectionHeading from '@/components/Global/SectionHeading.vue';
 import useCategory from '@/composables/useCategory';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { useHead } from '@unhead/vue'
+
 const { getProductByCategory } = useCategory();
 const route = useRoute();
 const sectionHead = ref(route.query.name);
 const product = ref<Array<any>>([]);
 const loading = ref(false);
+
+const title = computed(() => {
+    return route.query.name + ' Category | Kalles Ecommerce'
+});
+
+useHead({
+    title,
+});
 
 onMounted(async () => {
 

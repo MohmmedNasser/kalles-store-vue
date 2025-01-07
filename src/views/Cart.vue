@@ -17,6 +17,11 @@
 import CartSubtotal from '@/components/Cart/CartSubtotal.vue';
 import CartTable from '@/components/Cart/CartTable.vue';
 import PageHeading from '@/components/Global/PageHeading.vue';
+import { useHead } from '@unhead/vue';
+
+useHead({
+    title: 'Cart | Kalles Ecommerce',
+});
 
 </script>
 

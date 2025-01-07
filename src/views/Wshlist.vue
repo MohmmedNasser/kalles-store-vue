@@ -45,6 +45,7 @@
 import ProductCard from '@/components/Products/ProductCard.vue';
 import { useWishlistStore } from '@/stores/useWishlistStore';
 import { Icon } from '@iconify/vue';
+import { useHead } from '@unhead/vue';
 import { ref } from 'vue';;
 
 const itemsPerRow = ref(4);
@@ -52,6 +53,9 @@ const gridOptions = ref([2, 3, 4, 5, 6]);
 const wishList = ref(true);
 const product = ref(useWishlistStore().getwishList);
 
+useHead({
+    title: 'Wshlist | Kalles Ecommerce',
+});
 
 const setItemsPerRow = (option: number) => {
     itemsPerRow.value = option

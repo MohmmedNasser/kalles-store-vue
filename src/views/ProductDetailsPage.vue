@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import { useRoute } from 'vue-router';
 import ProductInfo from '@/components/Products/ProductInfo.vue';
@@ -43,11 +43,20 @@ import AlsoLikeProduct from '@/components/Products/AlsoLikeProduct.vue';
 import ProductDetails from '@/components/Products/ProductDetails.vue';
 import ProductThumb from '@/components/Products/ProductThumb.vue';
 import useProduct from '@/composables/useProduct';
+import { useHead } from '@unhead/vue';
 
 const route = useRoute();
 const { getSingleProduct } = useProduct();
 const product = ref<any>({});
 const loading = ref(false);
+
+const title = computed(() => {
+    return (product.value?.title ? product.value?.title : 'Kalles Ecommerce') + ' | Kalles Ecommerce'
+});
+
+useHead({
+    title,
+});
 
 onMounted(async () => {
     product.value = await getSingleProduct(route.params.id);
