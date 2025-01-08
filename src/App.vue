@@ -23,6 +23,7 @@ import MenuDrawer from './components/Global/MenuDrawer.vue';
 import useDialog from './composables/useDialog';
 import CartDrawer from './components/Cart/CartDrawer.vue';
 import AuthDrawer from './components/Auth/AuthDrawer.vue';
+import useCategory from './composables/useCategory';
 
 const mobileView = ref(false);
 const windowWidth = ref(window.innerWidth);
@@ -40,11 +41,15 @@ const getWindowWidth = () => {
     }
 };
 
+const { fetchCategories } = useCategory();
+
 onMounted(() => {
     getWindowWidth();
+    fetchCategories();
     window.onresize = () => {
         getWindowWidth();
     };
+
 })
 
 </script>

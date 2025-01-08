@@ -53,9 +53,13 @@ const loading = ref(false);
 const title = computed(() => {
     return (product.value?.title ? product.value?.title : 'Kalles Ecommerce') + ' | Kalles Ecommerce'
 });
+const description = computed(() => {
+    return product.value?.description
+});
 
 useHead({
     title,
+    meta: [{ name: 'description', content: () => description.value },],
 });
 
 onMounted(async () => {

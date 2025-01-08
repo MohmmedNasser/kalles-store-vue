@@ -1,4 +1,8 @@
 import api from '@/api';
+import { ref } from 'vue';
+import type { Category } from '@/types';
+
+const categories = ref<Category[]>([]);
 
 export default function useCategory() {
 
@@ -11,7 +15,8 @@ export default function useCategory() {
                     name: cat.name
                 }
             });
-            return data;
+            categories.value = data;
+            // return data;
         } catch (error) {
             console.error('Failed to fetch data:', error);
         }
@@ -28,5 +33,5 @@ export default function useCategory() {
     }
 
 
-    return { fetchCategories, getProductByCategory }
+    return { categories, fetchCategories, getProductByCategory }
 }

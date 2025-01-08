@@ -34,19 +34,13 @@
 
 <script setup lang="ts">
 import useCategory from '@/composables/useCategory';
-import type { Category } from '@/types';
 import { onMounted, ref } from 'vue';
 
 defineProps<{
     from: String;
 }>();
 
-const { fetchCategories } = useCategory();
-const categories = ref<Category[]>([]);
-
-onMounted(async () => {
-    categories.value = await fetchCategories();
-});
+const { categories } = useCategory();
 
 </script>
 

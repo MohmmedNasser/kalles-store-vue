@@ -1,5 +1,5 @@
 <template>
-    <v-col v-if="Object.keys(product).length == 0 || loading" cols="6" class="pa-0 ps-5">
+    <v-col v-if="Object.keys(product).length == 0 || loading" cols="12" lg="6" class="pa-0 ps-5">
         <v-skeleton-loader type="heading"></v-skeleton-loader>
         <v-skeleton-loader type="subtitle"></v-skeleton-loader>
         <v-skeleton-loader type="text"></v-skeleton-loader>
@@ -10,7 +10,7 @@
         <v-skeleton-loader type="text, text, text, text"></v-skeleton-loader>
     </v-col>
 
-    <v-col v-else cols="6" class="pa-0 ps-5">
+    <v-col v-else cols="12" lg="6" class="pa-0 px-2 ps-lg-5 mt-5 mt-lg-0">
         <v-card elevation="0">
             <v-card-title tag="h5" class="pa-0 text-wrap mb-3 text-h5 text-black">
                 {{ product?.title }}

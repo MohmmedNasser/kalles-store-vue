@@ -173,7 +173,8 @@
             <v-row class="pb-5">
                 <v-col class="pa-0" cols="12" md="6">
                     <p class="text-body-2 text-center text-md-start text-grey-darken-1">
-                        Copyright &copy; 2024 Kalles all rights reserved. Powered by The4
+                        Copyright &copy; 2024 Kalles all rights reserved. Developed by <a
+                            href="https://github.com/MohmmedNasser" target="_blank">Mohammed Nasser</a>
                     </p>
                 </v-col>
                 <v-col class="pa-0" cols="12" md="6">

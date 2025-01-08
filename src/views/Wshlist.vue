@@ -11,7 +11,7 @@
             </div> -->
 
             <template v-if="product.length > 0">
-                <div class="mb-5 mt-10 d-flex justify-center align-center ga-4">
+                <div class="mb-5 mt-10 d-flex justify-center align-center ga-4 grid-wrap">
                     <v-btn variant="plain" density="compact" v-for="option in gridOptions" :key="option"
                         :class="{ active: itemsPerRow === option }" :ripple="false" class="grid-btn opacity-100 pa-0"
                         @click="setItemsPerRow(option)">
@@ -100,6 +100,31 @@ const handleWishlistUpdate = (removedProduct: Object) => {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 5px;
+    margin-top: 50px;
+}
+
+@media (max-width: 1280px) {
+    .grid-wrap {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1280px) {
+    .wishlist-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media (max-width: 960px) {
+    .wishlist-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .wishlist-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
 
 :deep(.product-card .product-img) {

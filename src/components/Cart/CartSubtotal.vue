@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-row>
-            <v-col cols="6">
+            <v-col cols="12" md="6">
                 <div>
                     <label for="help" class="text-grey-darken-4 text-body-2 font-weight-medium">
                         Add Order Note
@@ -22,7 +22,7 @@
                 </div>
 
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" md="6">
                 <v-card elevation="0" class="text-end">
                     <v-card-title tag="h5" class="font-weight-medium text-h6 mb-2 pa-0">
                         SUBTOTAL : $ {{ totalCartPrice }}

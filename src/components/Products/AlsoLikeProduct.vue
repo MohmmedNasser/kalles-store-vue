@@ -10,8 +10,22 @@
                         </v-col>
                     </v-row>
 
-                    <swiper class="my-swiper" :spaceBetween="15" :slidesPerView="4" :modules="[Autoplay]"
-                        :autoplay="{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }" :loop="false">
+                    <swiper class="my-swiper" :spaceBetween="10" :slidesPerView="2" :modules="[Autoplay]"
+                        :autoplay="{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }" :loop="false"
+                        :breakpoints="{
+                            992: {
+                                slidesPerView: 2,
+                                spaceBetween: 10
+                            },
+                            1199: {
+                                slidesPerView: 3,
+                                spaceBetween: 10
+                            },
+                            1200: {
+                                slidesPerView: 4,
+                                spaceBetween: 15
+                            }
+                        }">
                         <swiper-slide v-for="productLike, index in alsoLikeProduct" :key="index">
                             <ProductCard :products="productLike" />
                         </swiper-slide>

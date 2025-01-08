@@ -18,11 +18,11 @@
         </thead>
         <tbody>
             <tr v-for="(product, index) in cartStore.getCartItems" :key="index">
-                <td class="py-3">
+                <td class="py-3" style="min-width: 270px;">
                     <div class="d-flex align-center ga-3">
                         <v-img :src="product?.thumbnail" loading="lazy" height="153" width="120"
                             class="flex-grow-0"></v-img>
-                        <div>
+                        <div class="flex-grow-0">
                             <p class="mb-2 font-weight-bold text-body-2">{{ product?.title }}</p>
                             <v-btn size="x-small" variant="plain" base-color="#757575" :ripple="false"
                                 class="opacity-100 pa-0" min-width="auto" @click="cartStore.removeFromCart(product)">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </td>
-                <td class="text-center">
+                <td class="text-center" style="min-width: 100px;">
 
                     <span class="d-block mb-2">
                         <span class="text-grey-darken-2 font-weight-regular text-body-2"
@@ -51,7 +51,7 @@
                     <Quantity cartQuantity="cart" :product="product" />
                 </td>
 
-                <td class="text-center">
+                <td class="text-center" style="min-width: 100px;">
                     <span class="font-weight-medium text-grey-darken-4">
                         $ {{ productPrices[index] }}
                     </span>

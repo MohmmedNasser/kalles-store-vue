@@ -37,7 +37,7 @@
                                                         dimension
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex align-center ga-2">
+                                                        <div class="d-flex flex-wrap py-2 align-center ga-2">
                                                             <p>
                                                                 <span>width :</span>
                                                                 {{

@@ -1,5 +1,6 @@
 <template>
-    <v-navigation-drawer elevation="0" v-model="isActiveCartMenu" location="right" width="340" sticky temporary>
+    <v-navigation-drawer elevation="0" :touchless="true" v-model="isActiveCartMenu" location="right" width="340" sticky
+        temporary>
         <v-card elevation="0" class="py-5">
 
             <div class="d-flex align-center justify-space-between border-b pb-3 px-5 ">
