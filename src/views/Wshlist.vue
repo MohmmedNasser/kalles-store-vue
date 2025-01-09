@@ -44,6 +44,7 @@
 <script setup lang="ts">
 import ProductCard from '@/components/Products/ProductCard.vue';
 import { useWishlistStore } from '@/stores/useWishlistStore';
+import type { Product } from '@/types';
 import { Icon } from '@iconify/vue';
 import { useHead } from '@unhead/vue';
 import { ref } from 'vue';;
@@ -61,7 +62,7 @@ const setItemsPerRow = (option: number) => {
     itemsPerRow.value = option
 };
 
-const handleWishlistUpdate = (removedProduct: Object) => {
+const handleWishlistUpdate = (removedProduct: Product) => {
     product.value = product.value.filter(item => item.id !== removedProduct.id);
 }
 </script>

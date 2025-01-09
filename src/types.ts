@@ -46,6 +46,7 @@ export interface Product {
 }
 
 export interface CartItem {
+    id: number; // Ensure this property is included
     thumbnail: string;
     title: string;
     price: number;
@@ -68,4 +69,10 @@ export interface User {
     lastName: string;
     gender: string;
     image: string;
+}
+
+export interface Features {
+    id: string | number,
+    img: String
+    text: String,
 }

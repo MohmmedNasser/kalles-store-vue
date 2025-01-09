@@ -1,4 +1,4 @@
-import type { CartItem } from '@/types'
+import type { CartItem, Product } from '@/types'
 import { defineStore } from 'pinia'
 import { useToast } from "vue-toastification";
 const toast = useToast();
@@ -22,7 +22,7 @@ export const useCartStore = defineStore('cart', {
     },
     actions: {
         addToCart(item: any, quantity: number) {
-            let index = this.cartItems.findIndex((product: any) => product.id === item.id);
+            let index = this.cartItems.findIndex((product) => product.id === item.id);
             if (index !== -1) {
                 this.cartItems[index].quantity = quantity
             } else {
@@ -32,7 +32,7 @@ export const useCartStore = defineStore('cart', {
             toast.success("Product added to the cart");
         },
         incrementQ(item: any) {
-            let index = this.cartItems.findIndex((product: any) => product.id === item.id)
+            let index = this.cartItems.findIndex((product) => product.id === item.id)
             if (index !== -1) {
                 this.cartItems[index].quantity += 1;
                 toast.success("Product quantity increased");
@@ -41,7 +41,7 @@ export const useCartStore = defineStore('cart', {
             }
         },
         decrementQ(item: any) {
-            let index = this.cartItems.findIndex((product: any) => product.id === item.id)
+            let index = this.cartItems.findIndex((product) => product.id === item.id)
             if (index !== -1) {
                 this.cartItems[index].quantity -= 1
                 if (this.cartItems[index].quantity === 0) {
@@ -53,7 +53,7 @@ export const useCartStore = defineStore('cart', {
             }
         },
         removeFromCart(item: any) {
-            this.cartItems = this.cartItems.filter((product: any) => product.id !== item.id);
+            this.cartItems = this.cartItems.filter((product) => product.id !== item.id);
             toast.success("Product removed from the cart");
         }
     },

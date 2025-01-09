@@ -119,16 +119,16 @@ const quantity = ref<any>(1);
 
 const wishListStore = useWishlistStore();
 
-const handleAddToCart = (product: object) => {
+const handleAddToCart = (product: Product) => {
     cartStore.addToCart(product, quantity.value);
 };
 
-const handleAddToWishList = (product: object) => {
+const handleAddToWishList = (product: Product) => {
     wishListStore.addToWishList(product)
 }
 
-const isProductInWishList = (product: object) => {
-    return wishListStore.getwishList.some((item) => item.id == product.id);
+const isProductInWishList = (product: Product) => {
+    return wishListStore.getwishList.some((item: Product) => item.id == product.id);
 }
 
 const updateQuantityFun = (newQuantity: Number) => {

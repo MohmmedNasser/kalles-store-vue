@@ -77,7 +77,7 @@ const handleQuickView = () => {
     openDialog(props.products);
 }
 
-const removeProductFromWishList = (product: Object) => {
+const removeProductFromWishList = (product: Product) => {
     emit('deleteWishList', product);
     wishListStore.removeWishList(product);
 }

@@ -25,7 +25,7 @@ import { onMounted, ref } from 'vue';
 import type { Product } from '@/types';
 import useMobile from '@/composables/useMobile';
 
-const selectedTab = ref<String | null>(null);
+const selectedTab = ref<string | undefined>("");
 
 // defineProps({
 //     product: {

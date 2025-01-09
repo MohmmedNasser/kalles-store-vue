@@ -19,13 +19,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Features } from '@/types';
 import { reactive } from 'vue';
-
-interface Features {
-    id: Number,
-    img: String
-    text: String,
-}
 
 const features: Features[] = reactive([
     {

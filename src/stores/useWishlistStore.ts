@@ -1,3 +1,4 @@
+import type { Product } from '@/types';
 import { defineStore } from 'pinia'
 import { useToast } from "vue-toastification";
 const toast = useToast();
@@ -5,7 +6,7 @@ const toast = useToast();
 export const useWishlistStore = defineStore('wishlist', {
     state: () => {
         return {
-            wishList: [],
+            wishList: [] as Product[],
         }
     },
     getters: {
@@ -17,8 +18,8 @@ export const useWishlistStore = defineStore('wishlist', {
         },
     },
     actions: {
-        addToWishList(item: any) {
-            let index = this.wishList.findIndex((product: any) => product.id === item.id);
+        addToWishList(item: Product) {
+            let index = this.wishList.findIndex((product: Product) => product.id === item.id);
             if (index === -1) {
                 this.wishList.push(item);
                 toast.success("Product added to the WishList");
@@ -27,8 +28,8 @@ export const useWishlistStore = defineStore('wishlist', {
                 toast.success("Product removed from the WishList");
             }
         },
-        removeWishList(item: any) {
-            this.wishList = this.wishList.filter((product: any) => product.id !== item.id);
+        removeWishList(item: Product) {
+            this.wishList = this.wishList.filter((product: Product) => product.id !== item.id);
             toast.success("Product removed from the WishList");
         }
     },

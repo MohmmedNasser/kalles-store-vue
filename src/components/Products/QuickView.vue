@@ -11,7 +11,8 @@
                             </v-carousel-item>
                         </v-carousel>
                     </v-col>
-                    <ProductDetails :product="selectedProduct" :loading="loading" class="px-5 pa-5" />
+                    <ProductDetails v-if="selectedProduct" :product="selectedProduct" :loading="loading"
+                        class="px-5 pa-5" />
                 </v-row>
             </v-container>
             <v-btn size="x-small" variant="plain" base-color="#78909C" rounded="circle" :ripple="false"

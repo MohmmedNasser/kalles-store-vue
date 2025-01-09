@@ -275,9 +275,9 @@ const { defineField, errorBag, handleSubmit, validate } = useForm({
     validationSchema
 });
 
-const getError = (name: string) => {
+const getError = (name: string): string | null => {
     const err = errorBag.value[name];
-    return err ? err[0] : false;
+    return err ? err[0] : null;
 }
 
 const [country] = defineField('country');

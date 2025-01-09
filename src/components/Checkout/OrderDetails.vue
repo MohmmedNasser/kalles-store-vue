@@ -243,7 +243,7 @@ const createToken = async () => {
             const { token, error } = await stripeInstance.value.createToken(cardNumberElement.value);
             if (error) {
                 // Display error
-                document.getElementById('card-error').textContent = error.message;
+                document.getElementById('card-error')!.textContent = error.message;
                 console.error('Token generation error:', error.message);
             } else {
                 // Handle successful token generation
