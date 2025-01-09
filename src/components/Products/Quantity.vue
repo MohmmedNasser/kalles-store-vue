@@ -89,4 +89,8 @@ const decreaseQuantity = () => {
     appearance: none;
     -webkit-appearance: none;
 }
+
+.product-quantity {
+    -moz-appearance: textfield;
+}
 </style>
