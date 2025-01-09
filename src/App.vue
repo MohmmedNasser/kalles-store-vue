@@ -20,7 +20,7 @@ import AppHeader from '@/components/Global/AppHeader.vue'
 import AppFooter from '@/components/Global/AppFooter.vue'
 import AppResponsiveHeader from '@/components/Global/AppResponsiveHeader.vue';
 import MenuDrawer from '@/components/Global/MenuDrawer.vue';
-import CartDrawer from '@/components/Cart/cart_drawer.vue';
+import CartDrawer from '@/components/Cart/CartDrawer.vue';
 import AuthDrawer from '@/components/Auth/AuthDrawer.vue';
 
 import { onMounted, ref, defineAsyncComponent } from 'vue';
