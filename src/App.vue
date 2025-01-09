@@ -16,16 +16,16 @@
 
 <script setup lang="ts">
 
-import AppHeader from './components/Global/AppHeader.vue'
-import AppFooter from './components/Global/AppFooter.vue'
-import AppResponsiveHeader from './components/Global/AppResponsiveHeader.vue';
-import MenuDrawer from './components/Global/MenuDrawer.vue';
-import CartDrawer from './components/Cart/CartDrawer.vue';
-import AuthDrawer from './components/Auth/AuthDrawer.vue';
+import AppHeader from '@/components/Global/AppHeader.vue'
+import AppFooter from '@/components/Global/AppFooter.vue'
+import AppResponsiveHeader from '@/components/Global/AppResponsiveHeader.vue';
+import MenuDrawer from '@/components/Global/MenuDrawer.vue';
+import CartDrawer from '@/components/Cart/CartDrawer.vue';
+import AuthDrawer from '@/components/Auth/AuthDrawer.vue';
 
 import { onMounted, ref, defineAsyncComponent } from 'vue';
-import useDialog from './composables/useDialog';
-import useCategory from './composables/useCategory';
+import useDialog from '@/composables/useDialog';
+import useCategory from '@/composables/useCategory';
 
 const mobileView = ref(false);
 const windowWidth = ref(window.innerWidth);
