@@ -98,6 +98,8 @@
                 </div>
             </div>
 
+            <SocialShare :title="product.title" :description="product.description" :img="product.thumbnail" />
+
         </v-card>
     </v-col>
 </template>
@@ -110,6 +112,7 @@ import Quantity from './Quantity.vue';
 import { useCartStore } from '@/stores/useCartStore';
 import { ref, watch } from 'vue';
 import { useWishlistStore } from '@/stores/useWishlistStore';
+import SocialShare from './SocialShare.vue';
 
 const route = useRoute();
 
