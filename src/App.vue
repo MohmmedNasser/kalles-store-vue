@@ -11,6 +11,7 @@
         <CartDrawer />
         <PaymenySuccessDialog v-if="isPaymenyDialogOpen" />
         <AuthDrawer />
+        <SearchDialog v-if="isSearchDialogOpen" />
     </v-layout>
 </template>
 
@@ -22,6 +23,7 @@ import AppResponsiveHeader from '@/components/Global/AppResponsiveHeader.vue';
 import MenuDrawer from '@/components/Global/MenuDrawer.vue';
 import CartDrawer from '@/components/Cart/CartDrawer.vue';
 import AuthDrawer from '@/components/Auth/AuthDrawer.vue';
+import SearchDialog from '@/components/Search/SearchDialog.vue';
 
 import { onMounted, ref, defineAsyncComponent } from 'vue';
 import useDialog from '@/composables/useDialog';
@@ -29,7 +31,7 @@ import useCategory from '@/composables/useCategory';
 
 const mobileView = ref(false);
 const windowWidth = ref(window.innerWidth);
-const { isDialogOpen, isPaymenyDialogOpen } = useDialog();
+const { isDialogOpen, isPaymenyDialogOpen, isSearchDialogOpen } = useDialog();
 
 const QuickView = defineAsyncComponent(() => import('@/components/Products/QuickView.vue'));
 const PaymenySuccessDialog = defineAsyncComponent(() => import('@/components/Checkout/PaymenySuccessDialog.vue'));

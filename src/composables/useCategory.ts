@@ -4,6 +4,8 @@ import type { Category } from '@/types';
 
 const categories = ref<Category[]>([]);
 
+const categoryList = ref<any>([]);
+
 export default function useCategory() {
 
     const fetchCategories = async () => {
@@ -22,6 +24,19 @@ export default function useCategory() {
         }
     }
 
+    // 'https://dummyjson.com/products/category/smartphones'
+    const fetchAllCategories = async () => {
+        try {
+            const res = await api.get('/products/categories');
+            const date = res.data.map((item: Category) => {
+                return item.name;
+            })
+            categoryList.value = ['All Categories', ...date];
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        }
+    }
+
     const getProductByCategory = async (category: any) => {
         try {
             const res = await api.get(`/products/category/${category}`);
@@ -33,5 +48,5 @@ export default function useCategory() {
     }
 
 
-    return { categories, fetchCategories, getProductByCategory }
+    return { categories, fetchCategories, getProductByCategory, fetchAllCategories, categoryList }
 }

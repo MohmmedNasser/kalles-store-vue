@@ -3,6 +3,7 @@ import type { Product } from '@/types';
 
 const isDialogOpen = ref(false);
 const isPaymenyDialogOpen = ref(false);
+const isSearchDialogOpen = ref(false);
 const selectedProduct = ref<Product | null>(null);
 
 export default function useDialog() {
@@ -21,12 +22,18 @@ export default function useDialog() {
         isPaymenyDialogOpen.value = true;
     }
 
+    const openSearchDialog = () => {
+        isSearchDialogOpen.value = true;
+    }
+
     return {
         openDialog,
         closeDialog,
         isDialogOpen,
         selectedProduct,
         isPaymenyDialogOpen,
-        openPaymenyDialog
+        openPaymenyDialog,
+        isSearchDialogOpen,
+        openSearchDialog,
     }
 }

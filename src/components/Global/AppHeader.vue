@@ -18,7 +18,7 @@
                 <v-col cols="2" class="pa-0 text-end">
                     <div class="d-flex align-center justify-end">
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
-                            :ripple="false">
+                            :ripple="false" @click="openSearchDialog">
                             <Icon icon="prime:search" class="text-black" width="25" />
                         </v-btn>
                         <v-btn size="x-small" variant="plain" base-color="#222222" class="opacity-100" height="25"
@@ -79,11 +79,8 @@
                             </v-list>
                         </v-menu>
 
-                        <!-- <router-link :to="{ name: 'about' }">About</router-link> -->
-
                     </div>
                 </v-col>
-                <!-- {{ user }} -->
             </v-row>
         </v-container>
     </v-app-bar>
@@ -99,6 +96,7 @@ import { useWishlistStore } from '@/stores/useWishlistStore';
 import useAuthMenu from '@/composables/useAuthMenu';
 import { useAuthStore } from '@/stores/useAuth';
 import { storeToRefs } from 'pinia';
+import useDialog from '@/composables/useDialog';
 
 const { toggleCartMenu } = useCartMenu();
 const { toggleAuthMenu } = useAuthMenu();
@@ -106,6 +104,8 @@ const cartStore = useCartStore()
 const wishlistStore = useWishlistStore();
 const route = useRoute();
 const router = useRouter();
+
+const { openSearchDialog } = useDialog();
 
 const { user } = storeToRefs(useAuthStore());
 const { logout } = useAuthStore();
