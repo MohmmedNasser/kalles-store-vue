@@ -45,12 +45,11 @@ import { onMounted, ref, watch } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from "swiper/modules";
 import { useRoute } from 'vue-router';
-import useCategory from '@/composables/useCategory';
+import { getProductByCategory } from "@/composables/useCategory";
 
 const isLoading = ref(false);
 const sectionHead = "You may also like";
 const alsoLikeProduct = ref([]);
-const { getProductByCategory } = useCategory();
 const route = useRoute();
 const allProductByCategory = ref([]);
 

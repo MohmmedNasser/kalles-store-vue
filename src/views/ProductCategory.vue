@@ -26,12 +26,11 @@
 <script setup lang="ts">
 import ProductCard from '@/components/Products/ProductCard.vue';
 import SectionHeading from '@/components/Global/SectionHeading.vue';
-import useCategory from '@/composables/useCategory';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useHead } from '@unhead/vue'
+import { getProductByCategory } from "@/composables/useCategory";
 
-const { getProductByCategory } = useCategory();
 const route = useRoute();
 const sectionHead = ref(route.query.name);
 const product = ref<Array<any>>([]);

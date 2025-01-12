@@ -1,39 +1,37 @@
-import { ref } from "vue";
 import type { Product } from '@/types';
+import { reactive, ref } from 'vue';
 
-const isDialogOpen = ref(false);
-const isPaymenyDialogOpen = ref(false);
-const isSearchDialogOpen = ref(false);
-const selectedProduct = ref<Product | null>(null);
+export const dialogState = reactive({
+    isQuickViewOpen: false,
+    isPaymentDialogOpen: false,
+    isSearchDialogOpen: false,
+    quickViewProduct: null,
+});
 
-export default function useDialog() {
+export const quickViewProduct = ref<Product | null>(null);
 
-    const openDialog = (product: Product) => {
-        selectedProduct.value = product;
-        isDialogOpen.value = true;
-    };
+export const openQuickViewDialog = (product: Product) => {
+    quickViewProduct.value = product;
+    dialogState.isQuickViewOpen = true;
+};
 
-    const closeDialog = () => {
-        isDialogOpen.value = false;
-        selectedProduct.value = null;
-    };
+export const closeQuickViewDialog = () => {
+    quickViewProduct.value = null;
+    dialogState.isQuickViewOpen = false;
+};
 
-    const openPaymenyDialog = () => {
-        isPaymenyDialogOpen.value = true;
-    }
+export const openPaymenyDialog = () => {
+    dialogState.isPaymentDialogOpen = true;
+};
 
-    const openSearchDialog = () => {
-        isSearchDialogOpen.value = true;
-    }
+export const closePaymenyDialog = () => {
+    dialogState.isPaymentDialogOpen = false;
+};
 
-    return {
-        openDialog,
-        closeDialog,
-        isDialogOpen,
-        selectedProduct,
-        isPaymenyDialogOpen,
-        openPaymenyDialog,
-        isSearchDialogOpen,
-        openSearchDialog,
-    }
+export const openSearchDialog = () => {
+    dialogState.isSearchDialogOpen = true;
 }
+
+export const closeSearchDialog = () => {
+    dialogState.isSearchDialogOpen = false;
+};

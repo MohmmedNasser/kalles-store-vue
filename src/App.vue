@@ -7,11 +7,11 @@
             <router-view />
         </v-main>
         <AppFooter />
-        <QuickView v-if="isDialogOpen" />
+        <QuickView v-if="dialogState.isQuickViewOpen" />
         <CartDrawer />
-        <PaymenySuccessDialog v-if="isPaymenyDialogOpen" />
+        <PaymenySuccessDialog v-if="dialogState.isPaymentDialogOpen" />
         <AuthDrawer />
-        <SearchDialog v-if="isSearchDialogOpen" />
+        <SearchDialog v-if="dialogState.isSearchDialogOpen" />
     </v-layout>
 </template>
 
@@ -26,12 +26,12 @@ import AuthDrawer from '@/components/Auth/AuthDrawer.vue';
 import SearchDialog from '@/components/Search/SearchDialog.vue';
 
 import { onMounted, ref, defineAsyncComponent } from 'vue';
-import useDialog from '@/composables/useDialog';
-import useCategory from '@/composables/useCategory';
+import { fetchCategories } from "@/composables/useCategory";
+
+import { dialogState } from '@/composables/useDialog';
 
 const mobileView = ref(false);
 const windowWidth = ref(window.innerWidth);
-const { isDialogOpen, isPaymenyDialogOpen, isSearchDialogOpen } = useDialog();
 
 const QuickView = defineAsyncComponent(() => import('@/components/Products/QuickView.vue'));
 const PaymenySuccessDialog = defineAsyncComponent(() => import('@/components/Checkout/PaymenySuccessDialog.vue'));
@@ -44,8 +44,6 @@ const getWindowWidth = () => {
         mobileView.value = false;
     }
 };
-
-const { fetchCategories } = useCategory();
 
 onMounted(() => {
     getWindowWidth();

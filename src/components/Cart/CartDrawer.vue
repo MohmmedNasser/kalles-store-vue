@@ -90,19 +90,23 @@
 </template>
 
 <script setup lang="ts">
-import useCartMenu from '@/composables/useCartMenu';
 import { Icon } from '@iconify/vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import CartProduct from './CartProduct.vue';
 import { useCartStore } from '@/stores/useCartStore';
 import Checkout from '../Buttons/Checkout.vue';
 import { useCartCalculations } from '@/composables/useCartCalculations';
+import { useMenuStore } from '@/stores/useMenu';
+import { storeToRefs } from 'pinia';
 
-const { isActiveCartMenu, toggleCartMenu } = useCartMenu();
 const cartStore = useCartStore();
 const agree = ref<boolean>(false);
 const { totalCartPrice, freeShippingPrice } = useCartCalculations();
 const cart = ref(cartStore.getCartItems);
+
+const useMenu = useMenuStore();
+const { isActiveCartMenu } = storeToRefs(useMenu);
+const { toggleCartMenu } = useMenu;
 
 onMounted(() => {
     cart.value = cartStore.getCartItems;

@@ -1,4 +1,7 @@
 import api from '@/api';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
 
 export default function useProduct() {
 
@@ -10,6 +13,7 @@ export default function useProduct() {
             return date;
         } catch (error) {
             console.error('Failed to fetch data:', error);
+            toast.error("Failed to get Products");
         }
     }
     const getSingleProduct = async (id: any) => {
@@ -19,6 +23,7 @@ export default function useProduct() {
             return product;
         } catch (error) {
             console.error('Failed to fetch data:', error);
+            toast.error("Failed to get Product");
         }
     }
 

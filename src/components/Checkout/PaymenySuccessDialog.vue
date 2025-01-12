@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="450" persistent v-model="isPaymenyDialogOpen">
+    <v-dialog max-width="450" persistent v-model="dialogState.isPaymentDialogOpen">
         <v-card elevation="0" class="rounded-lg overflow-hidden position-relative py-6 px-4">
             <v-container class="px-0">
                 <div class="d-flex flex-column align-center justify-center">
@@ -11,7 +11,8 @@
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere assumenda amet nisi ipsa itaque,
                         molestiae culpa dolorum possimus nesciunt libero.
                     </p>
-                    <v-btn variant="outlined" class="text-capitalize mt-5 font-weight-medium" @click="closeDialog">
+                    <v-btn variant="outlined" class="text-capitalize mt-5 font-weight-medium"
+                        @click="closePaymenyDialog">
                         Continue shipping
                     </v-btn>
                 </div>
@@ -21,14 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import useDialog from '@/composables/useDialog';
 import { Icon } from '@iconify/vue';
-
-const { isPaymenyDialogOpen } = useDialog();
-
-const closeDialog = () => {
-    isPaymenyDialogOpen.value = false;
-}
+import { dialogState, closePaymenyDialog } from '@/composables/useDialog';
 
 </script>
 

@@ -7,7 +7,7 @@
         <v-col cols="7" class="pa-0">
             <v-card-text tag="p" class="pa-0 text-wrap mb-1 mt-2 text-grey-darken-4">
                 <v-hover v-slot="{ isHovering, props }">
-                    <RouterLink @click="isSearchDialogOpen = false"
+                    <RouterLink @click="closeSearchDialog"
                         :to="{ name: 'product_details', params: { id: products?.id } }"
                         class="text-body-2 font-weight-semibold text-decoration-none"
                         :class="isHovering ? 'text-light-blue-darken-4' : ''" v-bind="props">
@@ -33,10 +33,7 @@
 
 <script setup lang="ts">
 import type { Product } from '@/types';
-import { useRouter } from 'vue-router';
-import useDialog from '@/composables/useDialog';
-
-const { isSearchDialogOpen } = useDialog();
+import { closeSearchDialog } from "@/composables/useDialog";
 
 const props = defineProps<{
     products: Product,

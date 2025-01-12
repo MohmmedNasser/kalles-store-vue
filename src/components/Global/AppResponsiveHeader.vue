@@ -81,9 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import useAuthMenu from '@/composables/useAuthMenu';
-import useCartMenu from '@/composables/useCartMenu';
-import { useMenuStore } from '@/stores/menu';
+import { useMenuStore } from '@/stores/useMenu';
 import { useAuthStore } from '@/stores/useAuth';
 import { useCartStore } from '@/stores/useCartStore';
 import { useWishlistStore } from '@/stores/useWishlistStore';
@@ -93,10 +91,8 @@ import { useRoute, useRouter } from 'vue-router';
 
 const cartStore = useCartStore();
 const wishlistStore = useWishlistStore();
-const { toggleCartMenu } = useCartMenu();
-const { toggleAuthMenu } = useAuthMenu();
 const useMenu = useMenuStore();
-const { toggleMenu } = useMenu;
+const { toggleNavMenu, toggleAuthMenu, toggleCartMenu } = useMenu;
 const route = useRoute();
 const router = useRouter();
 
@@ -104,7 +100,7 @@ const { user } = storeToRefs(useAuthStore());
 const { logout } = useAuthStore();
 
 const toggleMenuFun = () => {
-    toggleMenu();
+    toggleNavMenu();
 }
 
 </script>

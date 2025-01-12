@@ -160,16 +160,15 @@
 <script setup lang="ts">
 import CheckoutSectionHead from '@/components/Checkout/CheckoutSectionHead.vue';
 import { useCartCalculations } from '@/composables/useCartCalculations';
-import useDialog from '@/composables/useDialog';
 import { useCartStore } from '@/stores/useCartStore';
 import { loadStripe } from '@stripe/stripe-js';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { openPaymenyDialog } from "@/composables/useDialog"
 
 const router = useRouter();
 const paymentType = ref('directTransfer');
 const agree = ref(false);
-const { openPaymenyDialog } = useDialog();
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 

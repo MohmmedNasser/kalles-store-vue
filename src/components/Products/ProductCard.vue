@@ -54,11 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import useDialog from '@/composables/useDialog';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import type { Product } from '@/types';
 import { useWishlistStore } from '@/stores/useWishlistStore';
+import { openQuickViewDialog } from "@/composables/useDialog";
 
 const props = defineProps<{
     products: Product,
@@ -68,13 +68,12 @@ const props = defineProps<{
 
 const showItem = ref<any>({});
 
-const { openDialog } = useDialog();
 const wishListStore = useWishlistStore();
 
 const emit = defineEmits(['deleteWishList']);
 
 const handleQuickView = () => {
-    openDialog(props.products);
+    openQuickViewDialog(props.products);
 }
 
 const removeProductFromWishList = (product: Product) => {

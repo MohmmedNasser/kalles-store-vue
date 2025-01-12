@@ -33,14 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import useCategory from '@/composables/useCategory';
-import { onMounted, ref } from 'vue';
+import { categories } from "@/composables/useCategory";
 
 defineProps<{
     from: String;
 }>();
-
-const { categories } = useCategory();
 
 </script>
 

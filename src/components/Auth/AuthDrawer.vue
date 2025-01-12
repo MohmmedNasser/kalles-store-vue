@@ -63,12 +63,16 @@
 </template>
 
 <script setup lang="ts">
-import useAuthMenu from '@/composables/useAuthMenu';
 import { useAuthStore } from '@/stores/useAuth';
+import { useMenuStore } from '@/stores/useMenu';
 import { Icon } from '@iconify/vue';
+import { storeToRefs } from 'pinia';
 import { reactive, ref } from 'vue';
 
-const { isActiveAuthMenu, toggleAuthMenu } = useAuthMenu();
+const useMenu = useMenuStore();
+const { isActiveAuthMenu } = storeToRefs(useMenu);
+const { toggleAuthMenu } = useMenu;
+
 const useAuth = useAuthStore();
 
 const auth = reactive({

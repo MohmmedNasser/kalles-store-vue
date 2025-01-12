@@ -89,26 +89,24 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 import Category from '../Category/Category.vue';
-import useCartMenu from '@/composables/useCartMenu';
 import { useCartStore } from '@/stores/useCartStore';
 import { useRoute, useRouter } from 'vue-router';
 import { useWishlistStore } from '@/stores/useWishlistStore';
-import useAuthMenu from '@/composables/useAuthMenu';
 import { useAuthStore } from '@/stores/useAuth';
 import { storeToRefs } from 'pinia';
-import useDialog from '@/composables/useDialog';
+import { openSearchDialog } from '@/composables/useDialog';
+import { useMenuStore } from '@/stores/useMenu';
 
-const { toggleCartMenu } = useCartMenu();
-const { toggleAuthMenu } = useAuthMenu();
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore();
 const route = useRoute();
 const router = useRouter();
 
-const { openSearchDialog } = useDialog();
-
 const { user } = storeToRefs(useAuthStore());
 const { logout } = useAuthStore();
+
+const useMenu = useMenuStore();
+const { toggleAuthMenu, toggleCartMenu } = useMenu;
 
 </script>
 
