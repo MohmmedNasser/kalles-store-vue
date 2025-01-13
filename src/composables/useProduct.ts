@@ -27,6 +27,17 @@ export default function useProduct() {
         }
     }
 
-    return { fetchProducts, getSingleProduct }
+    const getSearchProduct = async (query: any) => {
+        try {
+            const res = await api.get(`/products/search?q=${query}`)
+            const product = await res.data.products;
+            return product;
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+            toast.error("Failed to get Product");
+        }
+    }
+
+    return { fetchProducts, getSingleProduct, getSearchProduct }
 
 }
