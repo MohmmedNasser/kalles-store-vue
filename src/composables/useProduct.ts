@@ -7,9 +7,10 @@ export default function useProduct() {
 
     const fetchProducts = async (name: string) => {
         try {
-            const res = await api.get(`/products/category/${name}`);
-            const date = await res.data.products.slice(0, 8);
+            const res = await api.get(`/products/category/${name}?limit=8`);
+            // const date = await res.data.products.slice(0, 8);
             // product.value = res.data.products.filter((_: any, index: number) => index < 8);
+            const date = await res.data.products;
             return date;
         } catch (error) {
             console.error('Failed to fetch data:', error);

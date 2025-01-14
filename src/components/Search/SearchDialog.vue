@@ -44,11 +44,13 @@
                             </v-col>
                         </v-row>
                         <v-row class="mt-2 px-0 mx-0" v-else>
-                            <v-col cols="12">
-                                <span class="d-flex justify-center align-center">
-                                    No results found
-                                </span>
-                            </v-col>
+                            <template v-if="isSubmitted">
+                                <v-col cols="12">
+                                    <span class="d-flex justify-center align-center">
+                                        No results found
+                                    </span>
+                                </v-col>
+                            </template>
                         </v-row>
                     </div>
 
@@ -88,6 +90,8 @@ const error = ref('');
 
 const hasProducts = computed(() => productsList.value.length > 0);
 
+const isSubmitted = ref(false);
+
 const fetchProductsByCategory = async () => {
     resetSearch();
     if (selectedCategory.value.slug === 'all') {
@@ -107,6 +111,7 @@ const resetSearch = () => {
 watch(() => searchQuery.value, (val) => {
     if (val == "") {
         resetSearch();
+        isSubmitted.value = false
     }
 });
 
@@ -116,6 +121,7 @@ const handleSearch = async () => {
         return;
     }
     error.value = '';
+    isSubmitted.value = true
     if (isAllCategories.value) {
         const searchResults = await getSearchProduct(searchQuery.value);
         productsList.value = filterProducts(searchResults, searchQuery.value);
