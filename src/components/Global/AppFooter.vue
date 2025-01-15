@@ -178,26 +178,14 @@
                     </p>
                 </v-col>
                 <v-col class="pa-0" cols="12" md="6">
-                    <ul class="d-flex align-center ga-10 justify-center justify-md-end ">
-                        <li class="mb-0">
-                            <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                Shop
-                            </RouterLink>
+                    <ul class="d-flex align-center ga-3 justify-center justify-md-end ">
+                        <li>
+                            <span class="text-subtitle-2">
+                                Contact me on :
+                            </span>
                         </li>
-                        <li class="mb-0">
-                            <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                About Us
-                            </RouterLink>
-                        </li>
-                        <li class="mb-0">
-                            <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                Contact
-                            </RouterLink>
-                        </li>
-                        <li class="mb-0">
-                            <RouterLink to="" class="text-grey-darken-1 text-body-2">
-                                Blog
-                            </RouterLink>
+                        <li class="mb-0" v-for="(link, index) in ProfileLinks" :key="index">
+                            <ShareButton :href="link.href" :icon="link.icon" />
                         </li>
                     </ul>
                 </v-col>
@@ -210,6 +198,23 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 import Category from '../Category/Category.vue';
+import { ref } from 'vue';
+import ShareButton from './ShareButton.vue';
+
+const ProfileLinks = ref({
+    whatsapp: {
+        href: ` https://wa.me/+972598059394`,
+        icon: "mingcute:whatsapp-fill"
+    },
+    telegram: {
+        href: `https://t.me/Mohammed_Nasser2`,
+        icon: "mingcute:telegram-fill"
+    },
+    linkedin: {
+        href: `https://www.linkedin.com/in/mohammed-nasser93/`,
+        icon: "mdi:linkedin"
+    },
+});
 
 </script>
 
